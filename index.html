@@ -14,7 +14,7 @@ button{font:inherit;cursor:pointer;border:0;border-radius:10px}.ib{background:va
 .wrap{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 56px)}
 aside{background:var(--side);border-right:1px solid var(--line);padding:14px;overflow:auto;position:sticky;top:56px;height:calc(100vh - 56px)}
 .tree a{display:flex;justify-content:space-between;gap:6px;padding:5px 8px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:.92em}
-.tree a:hover,.tree a.on{background:var(--lotus2)}.tree .l2{margin-left:14px}.tree .l3{margin-left:28px;font-size:.86em}.tree .dim{color:var(--mute)}
+.tree a:hover,.tree a.on{background:var(--lotus2)}.tree .l2{margin-left:14px}.tree .l3{margin-left:28px;font-size:.86em}.tree .dim{color:var(--mute)}.tree .gh{display:flex;align-items:center}.tree .gh>a{flex:1;min-width:0}.tree .tg{border:0;background:none;color:var(--mute);cursor:pointer;width:22px;padding:4px 0;font-size:.9em;transition:transform .2s;flex:none}.tree .grp.open>.gh>.tg{transform:rotate(90deg);color:var(--gold)}.tree .gk{display:none}.tree .grp.open>.gk{display:block;animation:fd .2s}.tree .gk .l2{margin-left:10px}.tree .gk .l3{margin-left:30px}@keyframes fd{from{opacity:0;transform:translateY(-3px)}}
 .ok{color:#4f9a5d}
 main{padding:20px clamp(14px,4vw,44px) 60px;max-width:1000px;width:100%}
 .crumb{font-size:.88em;color:var(--mute);margin-bottom:10px}.crumb a{color:var(--gold);cursor:pointer;text-decoration:none}
@@ -97,11 +97,17 @@ const pct=(a,b)=>{const r=range(a,b);return Math.round(100*r.filter(i=>P[i]).len
 const bar=p=>`<div class="bar"><i style="width:${p}%"></i></div><small>${p}% đã học</small>`;
 const items=it=>'<dl>'+it.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')+'</dl>';
 const detail=w=>D.detailWeeks.includes(w);
-function side(cur){let h='<div class="tree">'+`<a href="#/taps" class="${cur=='taps'?'on':''}"><span>📚 Tất cả 374 tập</span><small>${pct(1,374)}%</small></a>`+(D.kinh?`<a href="#/kinh" class="${cur=='kinh'?'on':''}"><span>📜 Kinh gốc (48 phẩm)</span><small>${kRead()}/49</small></a>`:'');D.stages.forEach((s,i)=>{const[a,b]=stageRange(s);
- h+=`<a href="#/gd/${i+1}" class="${cur=='gd'+(i+1)?'on':''}"><span>GĐ ${i+1}: ${esc(s.title.split(':')[1]||s.title).split('(')[0]}</span><small>${pct(a,b)}%</small></a>`;
- if(i==0)D.weeks.forEach((w,j)=>{const n=j+1;h+=`<a class="l2 ${detail(n)?'':'dim'} ${cur=='w'+n?'on':''}" href="#/tuan/${n}"><span>Tuần ${n} · tập ${w.from}–${w.to}</span><small>${pct(w.from,w.to)}%</small></a>`;
-  if(detail(n))range(w.from,w.to).forEach(t=>h+=`<a class="l3 ${EP[t]?'':'dim'} ${cur=='t'+t?'on':''}" href="#/tap/${t}"><span>Tập ${String(t).padStart(3,'0')}</span><span class="ok">${P[t]?'✓':''}</span></a>`)})});
- $('#side').innerHTML=h+'</div>'}
+function side(cur){const OP=JSON.parse(localStorage.kvOpen||'{}'),ct=/^t\d+$/.test(cur)?+cur.slice(1):0,cw=/^w\d+$/.test(cur)?+cur.slice(1):0;
+ const isOpen=(k,auto)=>k in OP?OP[k]:auto;
+ const tapA=t=>`<a class="l3 ${EP[t]?'':'dim'} ${cur=='t'+t?'on':''}" href="#/tap/${t}"><span>Tập ${String(t).padStart(3,'0')}</span><span class="ok">${P[t]?'✓':''}</span></a>`;
+ const grp=(k,cls,href,label,right,kids,auto)=>{const o=isOpen(k,auto);return `<div class="grp ${o?'open':''}" data-k="${k}"><div class="gh"><button class="tg" onclick="tgl(this)" aria-label="Mở/đóng">▸</button><a class="${cls}" href="${href}"><span>${label}</span><small>${right}</small></a></div><div class="gk">${kids}</div></div>`};
+ let h='<div class="tree">'+`<a href="#/taps" class="${cur=='taps'?'on':''}"><span>📚 Tất cả 374 tập</span><small>${pct(1,374)}%</small></a>`+(D.kinh?`<a href="#/kinh" class="${cur=='kinh'?'on':''}"><span>📜 Kinh gốc (48 phẩm)</span><small>${kRead()}/49</small></a>`:'');
+ D.stages.forEach((s,i)=>{const[a,b]=stageRange(s);let kids='',inS=(ct>=a&&ct<=b)||(i==0&&cw)||cur=='gd'+(i+1);
+  if(i==0)D.weeks.forEach((w,j)=>{const n=j+1;kids+=grp('w'+n,`l2 ${cur=='w'+n?'on':''}`,`#/tuan/${n}`,`Tuần ${n} · tập ${w.from}–${w.to}`,pct(w.from,w.to)+'%',range(w.from,w.to).map(tapA).join(''),(ct>=w.from&&ct<=w.to)||cw==n)});
+  else kids=range(a,b).map(tapA).join('');
+  h+=grp('g'+(i+1),cur=='gd'+(i+1)?'on':'',`#/gd/${i+1}`,`GĐ ${i+1}: ${esc(s.title.split(':')[1]||s.title).split('(')[0]}`,pct(a,b)+'%',kids,inS)});
+ $('#side').innerHTML=h+'</div>';const on=$('#side .on');if(on)on.scrollIntoView({block:'nearest'})}
+function tgl(b){const g=b.closest('.grp'),o=g.classList.toggle('open'),OP=JSON.parse(localStorage.kvOpen||'{}');OP[g.dataset.k]=o;localStorage.kvOpen=JSON.stringify(OP)}
 const crumb=a=>$('#crumb').innerHTML=a.map(([t,h])=>h?`<a onclick="go('${h}')">${esc(t)}</a>`:esc(t)).join(' › ');
 function vHome(){crumb([['Tổng quan']]);return `<div class="hero"><h1>🪷 Lộ trình học Kinh Vô Lượng Thọ</h1><p>374 tập giảng của Lão Pháp Sư Tịnh Không — đi từ tổng quan vào chi tiết: <b>Giai đoạn → Tuần → Tập → Chủ đề</b>.</p>${bar(pct(1,374))}${D.kinh?`<p><button class="btn" onclick="go('#/kinh')">📜 Đọc Kinh gốc (48 phẩm)</button></p>`:''}</div>
 <div class="grid">${D.stages.map((s,i)=>{const[a,b]=stageRange(s);return `<div class="card click" onclick="go('#/gd/${i+1}')"><span class="tag g">Giai đoạn ${i+1}</span><h3>${esc(s.title.split(':').slice(1).join(':')||s.title)}</h3>${items(s.items.slice(0,2))}${bar(pct(a,b))}${i?'<span class="tag">sắp có chi tiết</span>':''}</div>`}).join('')}</div>`}
