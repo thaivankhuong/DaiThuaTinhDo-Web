@@ -1,0 +1,56 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lịch giảng pháp · Đại Thừa Tịnh Độ</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf7ef;--card:#fff;--ink:#3b2f24;--mute:#8a7a68;--gold:#c8962e;--lotus:#d9738f;--lotus2:#f6dbe2;--line:#efe4d2;--side:#fffaf2;--sh:0 6px 24px rgba(120,80,20,.08)}
+.dark{--bg:#17130f;--card:#221c16;--ink:#f1e6d6;--mute:#a8987f;--line:#3a3026;--side:#1c1712;--lotus2:#4a2a33;--sh:0 6px 24px rgba(0,0,0,.4)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,sans-serif;line-height:1.55}
+header{position:sticky;top:0;z-index:5;background:var(--side);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:10px 18px}
+header b{font-family:"Noto Serif",serif;color:var(--gold);font-size:1.1em}header nav{margin-left:auto;display:flex;gap:6px}
+a.nb,button.nb{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;text-decoration:none;font:inherit;font-size:.88em;cursor:pointer}
+main{max-width:960px;margin:0 auto;padding:22px 16px 60px}
+.hero{background:linear-gradient(135deg,var(--lotus2),var(--card));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--sh)}
+.hero h1{margin:0 0 6px;font-family:"Noto Serif",serif;font-size:1.6em}.hero p{margin:0;color:var(--mute)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.bar select,.bar input{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 10px;font:inherit;font-size:.9em}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.88em;color:var(--ink)}.chip.on{background:var(--gold);color:#fff;border-color:var(--gold)}
+.day{margin:22px 0 8px;font-weight:700;color:var(--gold);display:flex;gap:8px;align-items:baseline}.day small{color:var(--mute);font-weight:500}
+.ev{display:grid;grid-template-columns:86px 1fr;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:8px 0;box-shadow:var(--sh)}
+.tm{text-align:center;border-right:1px dashed var(--line);padding-right:10px}.tm b{display:block;font-size:1.25em}.tm small{color:var(--mute)}
+.ev h3{margin:0 0 4px;font-size:1.02em}.who{color:var(--lotus);font-weight:600;font-size:.92em}.where{color:var(--mute);font-size:.88em;margin:4px 0 8px}
+.tag{display:inline-block;font-size:.74em;padding:2px 8px;border-radius:999px;background:var(--lotus2);margin-right:4px}.tag.d{background:#fff1cc;color:#8a5a00}.dark .tag.d{background:#4a3a12;color:#ffd77a}.tag.ok{background:#dff3e3;color:#21713a}
+.acts{display:flex;flex-wrap:wrap;gap:6px}.acts a{font-size:.84em;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 10px;background:var(--side)}.acts a:hover{border-color:var(--gold)}
+.empty{text-align:center;color:var(--mute);padding:40px 10px;border:1px dashed var(--line);border-radius:16px;margin-top:18px}
+.foot{margin-top:26px;font-size:.82em;color:var(--mute)}
+@media(max-width:560px){.ev{grid-template-columns:64px 1fr;gap:10px}.hero h1{font-size:1.3em}}
+</style></head><body>
+<header><b>🪷 Lịch giảng pháp</b><nav><a class="nb" href="../">📖 Kinh Vô Lượng Thọ</a><button class="nb" id="dk">🌙</button></nav></header>
+<main><div class="hero"><h1>Lịch giảng pháp sắp tới</h1><p>Các buổi giảng của chư Tôn đức, gom từ trang chính thức của chùa và quý thầy. Mỗi buổi đều có link bài gốc để anh chị kiểm lại.</p></div>
+<div class="bar"><div class="chips" id="rg"><span class="chip on" data-d="7">7 ngày tới</span><span class="chip" data-d="30">30 ngày</span><span class="chip" data-d="0">Tất cả</span></div>
+<select id="ft"><option value="">Tất cả thầy / chùa</option></select><select id="fp"><option value="">Mọi tỉnh</option></select>
+<select id="ff"><option value="">Trực tiếp & online</option><option value="InPerson">Trực tiếp</option><option value="Online">Online</option><option value="Hybrid">Kết hợp</option></select>
+<label class="chip"><input type="checkbox" id="fa" style="margin:0 4px 0 0">Chỉ buổi đã duyệt</label></div>
+<div id="list"></div><p class="foot" id="foot"></p></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+if(localStorage.kvDark==1)document.documentElement.classList.add('dark');$('#dk').onclick=()=>localStorage.kvDark=+document.documentElement.classList.toggle('dark');
+let EV=[],days=7;const TZ={timeZone:'Asia/Ho_Chi_Minh'};
+const dkey=d=>d.toLocaleDateString('en-CA',TZ),hm=d=>d.toLocaleTimeString('vi-VN',{...TZ,hour:'2-digit',minute:'2-digit'});
+fetch('lich-giang.json?'+Date.now()).then(r=>r.json()).then(j=>{const seen=new Map();(j.events||[]).forEach(e=>{const k=e.id||[e.teacherSlug,e.startTime,e.venueName||e.onlineUrl].join('|');if(!seen.has(k))seen.set(k,e)});
+ EV=[...seen.values()].sort((a,b)=>a.startTime.localeCompare(b.startTime));
+ const opt=(sel,vals)=>vals.forEach(([v,l])=>$(sel).insertAdjacentHTML('beforeend',`<option value="${esc(v)}">${esc(l)}</option>`));
+ opt('#ft',[...new Map(EV.map(e=>[e.teacherSlug,e.teacherName||e.teacherSlug]))]);opt('#fp',[...new Set(EV.map(e=>e.provinceName).filter(Boolean))].map(p=>[p,p]));
+ $('#foot').textContent='Cập nhật lúc '+new Date(j.generatedAt).toLocaleString('vi-VN',TZ)+' (giờ Việt Nam).';draw()}).catch(()=>$('#list').innerHTML='<div class="empty">Chưa tải được dữ liệu lịch giảng.</div>');
+document.querySelectorAll('#rg .chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('#rg .chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');days=+c.dataset.d;draw()});
+['#ft','#fp','#ff','#fa'].forEach(s=>$(s).onchange=draw);
+function draw(){const now=new Date(),t0=new Date(dkey(now)+'T00:00:00+07:00'),t1=days?new Date(+t0+days*864e5):null;
+ const L=EV.filter(e=>{const s=new Date(e.startTime),en=e.endTime?new Date(e.endTime):new Date(+s+3*36e5);return en>=now&&(!t1||s<t1)&&(!$('#ft').value||e.teacherSlug==$('#ft').value)&&(!$('#fp').value||e.provinceName==$('#fp').value)&&(!$('#ff').value||e.format==$('#ff').value)&&(!$('#fa').checked||e.status=='Approved')});
+ if(!L.length){$('#list').innerHTML='<div class="empty">Không có buổi giảng nào trong khoảng này.</div>';return}
+ let h='',last='';L.forEach(e=>{const s=new Date(e.startTime),k=dkey(s);
+  if(k!=last){last=k;h+=`<div class="day">${s.toLocaleDateString('vi-VN',{...TZ,weekday:'long'})}<small>${s.toLocaleDateString('vi-VN',{...TZ,day:'2-digit',month:'2-digit',year:'numeric'})}</small></div>`}
+  const fm={InPerson:'📍 Trực tiếp',Online:'💻 Online',Hybrid:'📍💻 Kết hợp'}[e.format]||'';
+  h+=`<div class="ev"><div class="tm"><b>${hm(s)}</b><small>${e.endTime?'đến '+hm(new Date(e.endTime)):'&nbsp;'}</small></div><div>
+  <div><span class="tag">${fm}</span>${e.status=='Approved'?'<span class="tag ok">✓ Đã duyệt</span>':'<span class="tag d">Bản nháp · chờ duyệt</span>'}</div>
+  <h3>${esc(e.title)}</h3><div class="who">${esc(e.teacherName||e.teacherSlug)}</div><div class="where">${esc(e.venueAddress||e.venueName||'')}</div>
+  <div class="acts"><a href="${esc(e.sourceUrl)}" target="_blank" rel="noopener">📄 Xem bài gốc</a>${e.mapUrl?`<a href="${esc(e.mapUrl)}" target="_blank" rel="noopener">🧭 Chỉ đường</a>`:''}${e.onlineUrl?`<a href="${esc(e.onlineUrl)}" target="_blank" rel="noopener">▶ Vào buổi giảng</a>`:''}${e.registrationUrl?`<a href="${esc(e.registrationUrl)}" target="_blank" rel="noopener">📝 Đăng ký</a>`:''}</div></div></div>`});
+ $('#list').innerHTML=h}
+</script></body></html>
