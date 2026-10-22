@@ -1,0 +1,16 @@
+:root{--bg:#fbf7ef;--card:#fff;--ink:#3b2f24;--mute:#8a7a68;--gold:#c8962e;--lotus:#d9738f;--lotus2:#f6dbe2;--line:#efe4d2;--side:#fffaf2;--sh:0 6px 22px rgba(120,80,20,.08);--mark:#ffe9a8}
+.dark{--bg:#17130f;--card:#221c16;--ink:#f1e6d6;--mute:#a8987f;--line:#3a3026;--side:#1c1712;--lotus2:#4a2a33;--sh:0 6px 22px rgba(0,0,0,.45);--mark:#6b5310}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,sans-serif;line-height:1.6}
+header{position:sticky;top:0;z-index:5;display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--side)}
+header .br{font-family:"Noto Serif",serif;color:var(--gold);font-weight:700;text-decoration:none;margin-right:8px}
+header nav{display:flex;gap:4px;flex-wrap:wrap}header nav a{color:var(--ink);text-decoration:none;font-size:.86em;padding:5px 10px;border-radius:999px}header nav a:hover,header nav a.on{background:var(--lotus2)}
+header #dk{margin-left:auto}
+button,.btn{font:inherit;font-size:.86em;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+button:hover,.btn:hover{border-color:var(--gold)}.pri{background:var(--gold);color:#fff;border-color:var(--gold)}
+main{max-width:900px;margin:0 auto;padding:22px 16px 70px}h1{font-family:"Noto Serif",serif;font-size:1.6em;margin:4px 0}.sub{color:var(--mute);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:10px 0;box-shadow:var(--sh)}
+.meta{font-size:.8em;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px;align-items:center}.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+mark{background:var(--mark);color:inherit;border-radius:3px}input[type=search],textarea{font:inherit;width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px 14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chip.on{background:var(--lotus2);border-color:var(--lotus)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:999px;font-size:.86em;opacity:0;transition:.3s;pointer-events:none}.toast.on{opacity:1}
+.empty{text-align:center;color:var(--mute);padding:30px}

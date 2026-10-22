@@ -1,0 +1,31 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Tra cứu theo chủ đề · 374 tập Kinh Vô Lượng Thọ</title>
+<style>.big{font-size:1.05em}.q{font-family:"Noto Serif",serif;font-size:1.02em}.sn{font-size:.95em}.cnt{color:var(--mute);font-size:.86em;margin:8px 2px}.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);width:0;transition:.2s}</style></head><body>
+<main><h1>🔎 Tra cứu theo chủ đề</h1><p class="sub">Gõ một chủ đề như "hồi hướng", "vọng niệm" hay "tín nguyện" để tìm các đoạn nguyên văn lời giảng của Lão Pháp Sư Tịnh Không trong 374 tập. Gõ không dấu cũng được.</p>
+<input id="s" type="search" class="big" placeholder="Nhập chủ đề cần tìm…" autofocus>
+<div class="chips" id="sug"></div>
+<div class="chips"><button class="chip on" data-m="q">⭐ Trong trích dẫn quan trọng</button><button class="chip" data-m="f">📚 Trong toàn văn 374 tập</button></div>
+<div id="prog" style="display:none"><div class="bar"><i id="pb"></i></div><div class="cnt" id="pt"></div></div>
+<div class="cnt" id="cnt"></div><div id="out"></div></main>
+<script src="../shared/ui.js"></script><script>
+const SUG=['hồi hướng','vọng niệm','tín nguyện','nhất tâm bất loạn','buông xả','thanh tịnh','bình đẳng','giác ngộ','vãng sanh','chí thành'];
+$('#sug').innerHTML=SUG.map(s=>'<button data-s="'+s+'">'+s+'</button>').join('');
+const nz=s=>{let o='';for(const c of s.toLowerCase()){const d=c.normalize('NFD')[0];o+=d=='đ'?'d':d}return o};
+let D,mode='q',FT=null,loading=false;
+fetch('../shared/quotes.json').then(r=>r.json()).then(j=>{D=j;D.n=j.q.map(q=>nz(q[2]));const u=new URLSearchParams(location.search).get('q');if(u){$('#s').value=u}run()});
+function hl(t,qn){const tn=nz(t);let o='',i=0,k;while(qn&&(k=tn.indexOf(qn,i))>=0){o+=esc(t.slice(i,k))+'<mark>'+esc(t.slice(k,k+qn.length))+'</mark>';i=k+qn.length}return o+esc(t.slice(i))}
+function tt(n){return 'Tập '+n+(D.titles[n]?' · '+D.titles[n]:'')}
+function run(){const v=$('#s').value.trim(),qn=nz(v);history.replaceState(0,'',v?'?q='+encodeURIComponent(v):location.pathname);
+ if(!v){$('#cnt').textContent='';$('#out').innerHTML='<div class="empty">Chọn một chủ đề gợi ý ở trên, hoặc tự gõ chủ đề anh chị muốn tìm.</div>';return}
+ if(mode=='q'){const R=[];D.n.forEach((x,i)=>x.includes(qn)&&R.push(D.q[i]));
+  $('#cnt').textContent=R.length+' trích dẫn có "'+v+'"';
+  $('#out').innerHTML=R.slice(0,300).map(([n,g,t,y])=>'<div class="card"><div class="meta">'+esc(tt(n))+' · '+esc(g)+'</div><div class="q">'+hl(t,qn)+'</div><div class="acts">'+(y?'<a class="btn pri" target="_blank" href="'+y+'">▶ Nghe đúng đoạn giảng</a>':'')+'<a class="btn" href="'+KV+'#/tap/'+n+'/td">📖 Mở tập '+n+'</a>'+markBtn('q:'+n+':'+nz(t).slice(0,40),{type:'Trích dẫn',text:t,src:tt(n),link:KV+'#/tap/'+n+'/td',yt:y})+'</div></div>').join('')||'<div class="empty">Chưa thấy trong trích dẫn. Anh chị thử tìm "Trong toàn văn 374 tập".</div>'}
+ else{if(!FT)return loadFT();const R=[];for(const [n,ps] of FT)ps.forEach((p,j)=>{const k=nz(p).indexOf(qn);if(k>=0)R.push([n,p,k,j])});
+  $('#cnt').textContent=R.length+' đoạn trong toàn văn có "'+v+'"'+(R.length>300?' (hiện 300 đoạn đầu)':'');
+  $('#out').innerHTML=R.slice(0,300).map(([n,p,k])=>{const a=Math.max(0,k-160),b=Math.min(p.length,k+qn.length+220);return '<div class="card"><div class="meta">'+esc(tt(n))+'</div><div class="sn">'+(a?'… ':'')+hl(p.slice(a,b),qn)+(b<p.length?' …':'')+'</div><div class="acts"><a class="btn" href="'+KV+'#/tap/'+n+'">📖 Đọc trong tập '+n+'</a>'+markBtn('f:'+n+':'+nz(p).slice(k,k+40),{type:'Đoạn giảng',text:p,src:tt(n),link:KV+'#/tap/'+n})+'</div></div>'}).join('')||'<div class="empty">Không tìm thấy.</div>'}}
+async function loadFT(){if(loading)return;loading=true;$('#prog').style.display='';const out=new Array(374);let done=0;
+ const one=async n=>{const t=await (await fetch(KV+'data/tap'+String(n).padStart(3,'0')+'.js')).text();const j=JSON.parse(t.slice(t.indexOf(',')+1,t.lastIndexOf(')')));out[n-1]=[n,j.blocks.filter(b=>b.p).map(b=>b.p)];done++;$('#pb').style.width=done/3.74+'%';$('#pt').textContent='Đang nạp toàn văn: '+done+'/374 tập (chỉ nạp một lần)'};
+ const ns=[...Array(374).keys()].map(i=>i+1);await Promise.all([...Array(8)].map(async()=>{while(ns.length)await one(ns.shift())}));
+ FT=out;$('#prog').style.display='none';run()}
+let tm;$('#s').oninput=()=>{clearTimeout(tm);tm=setTimeout(run,250)};
+document.addEventListener('click',e=>{const s=e.target.closest('[data-s]');if(s){$('#s').value=s.dataset.s;run()}const m=e.target.closest('[data-m]');if(m){mode=m.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x==m));run()}});
+</script></body></html>

@@ -34,6 +34,12 @@ footer{margin-top:40px;text-align:center;color:var(--mute);font-size:.82em}
 <a class="card" href="lich-giang/"><div class="ic">📅</div><h3>Lịch giảng pháp</h3><p>Các buổi giảng sắp tới của chư Tôn đức, trực tiếp và online. Mỗi buổi có link bài gốc, bản đồ chỉ đường hoặc link tham gia.</p>
 <div class="st" id="lgst"><span>Đang tải…</span></div><div class="up" id="lgup"></div><div class="go">Xem lịch →</div></a>
 </div>
+<h2>Học và tu mỗi ngày</h2>
+<div class="grid">
+<a class="card" href="tra-cuu/"><div class="ic">🔎</div><h3>Tra cứu theo chủ đề</h3><p>Gõ "hồi hướng" hay "vọng niệm" để thấy ngay các đoạn nguyên văn trong 374 tập, kèm nút nghe đúng đoạn giảng.</p><div class="go">Tra cứu →</div></a>
+<a class="card" href="tung-kinh/"><div class="ic">🪷</div><h3>Tụng kinh mỗi ngày</h3><p>Mỗi ngày tụng một phẩm trong 48 phẩm. Trang ghi nhớ anh chị đã tụng đến đâu và dẫn tới các tập giảng giải phẩm đó.</p><div class="go" id="tkp">Tụng hôm nay →</div></a>
+<a class="card" href="so-tay/"><div class="ic">📒</div><h3>Sổ tay cá nhân</h3><p>Lưu câu kinh và trích dẫn mình thích, ghi chú riêng. Dữ liệu nằm trên máy của anh chị, không cần tài khoản, và xuất ra tệp được.</p><div class="go" id="stp">Mở sổ tay →</div></a>
+</div>
 <h2>Sắp có</h2>
 <div class="grid">
 <div class="soon"><span class="tag">Sắp có</span><h3>🌅 Một câu mỗi ngày</h3><p>Mỗi sáng một câu nguyên văn lời giảng, kèm nút nghe đúng đoạn trong video gốc.</p></div>
@@ -46,6 +52,7 @@ footer{margin-top:40px;text-align:center;color:var(--mute);font-size:.82em}
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 if(localStorage.kvlt_dark=='1')document.documentElement.classList.add('dark');$('#dk').onclick=()=>localStorage.kvlt_dark=+document.documentElement.classList.toggle('dark');
 try{const P=JSON.parse(localStorage.kvlt_prog||'{}'),n=Object.values(P).filter(Boolean).length;if(n)$('#kvp').textContent=`Học tiếp · đã xong ${n}/374 tập →`}catch(e){}
+try{const T=JSON.parse(localStorage.kvlt_tung||'{}'),d=Object.keys(T.done||{}).length;if(d)document.getElementById('tkp').textContent=`Tụng tiếp · đã xong ${d}/48 phẩm →`;const n=Object.keys(JSON.parse(localStorage.kvlt_notes||'{}')).length;if(n)document.getElementById('stp').textContent=`Mở sổ tay · ${n} mục đã lưu →`}catch(e){}
 const TZ={timeZone:'Asia/Ho_Chi_Minh'};
 fetch('lich-giang/lich-giang.json?'+Date.now()).then(r=>r.json()).then(j=>{const now=new Date(),w=new Date(+now+7*864e5),seen=new Set();
  const L=(j.events||[]).filter(e=>{if(seen.has(e.id))return false;seen.add(e.id);const en=e.endTime?new Date(e.endTime):new Date(+new Date(e.startTime)+3*36e5);return en>=now}).sort((a,b)=>a.startTime.localeCompare(b.startTime));

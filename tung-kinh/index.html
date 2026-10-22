@@ -1,0 +1,27 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Tụng kinh mỗi ngày một phẩm · Kinh Vô Lượng Thọ</title>
+<style>.today{background:radial-gradient(circle at 0 0,var(--lotus2),transparent 70%),var(--card)}.pt{font-family:"Noto Serif",serif;font-size:1.35em;margin:4px 0}
+.row{padding:10px 0;border-top:1px dashed var(--line)}.ha{font-style:italic;color:var(--mute);font-size:.92em}.vi{font-family:"Noto Serif",serif;font-size:1.06em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px}.grid button{padding:6px 0;justify-content:center;border-radius:10px}.grid .d{background:var(--lotus2);border-color:var(--lotus)}.grid .c{outline:2px solid var(--gold)}
+.taps{display:flex;flex-wrap:wrap;gap:6px}.pbar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0}.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--lotus))}</style></head><body>
+<main><h1>🪷 Tụng kinh mỗi ngày một phẩm</h1><p class="sub">Mỗi ngày tụng một phẩm Kinh Vô Lượng Thọ, ghi nhớ anh chị đã tụng đến đâu và xem các tập Lão Pháp Sư giảng giải phẩm đó. Tiến độ chỉ lưu trên máy của anh chị.</p>
+<div class="card today" id="top"></div>
+<div class="card"><div class="meta">Chọn phẩm (ô hồng là đã tụng)</div><div class="grid" id="grid" style="margin-top:8px"></div></div>
+<div id="read"></div><p class="meta" id="src" style="margin-top:20px"></p></main>
+<script src="../shared/ui.js"></script><script>
+let K,S=JSON.parse(localStorage.kvlt_tung||'{"done":{}}'),view=null,mode=localStorage.kvlt_tung_mode||'vi';
+const sv=()=>localStorage.kvlt_tung=JSON.stringify(S),today=()=>new Date().toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'});
+const next=()=>{for(let n=1;n<=48;n++)if(!S.done[n])return n;return 1};
+fetch('../shared/kinh.json').then(r=>r.json()).then(j=>{K=j;$('#src').textContent='Bản kinh: '+j.meta.site+' · Hội tập: '+j.meta.hoitap+' · Dịch: '+j.meta.dich;view=+(location.hash.slice(1))||next();draw()});
+function draw(){const d=Object.keys(S.done).length,cur=next(),tod=Object.values(S.done).filter(x=>x==today()).length;let streak=0;{let t=new Date();const set=new Set(Object.values(S.done));while(set.has(t.toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'}))){streak++;t=new Date(t-864e5)}}
+ const p=K.pham[cur];
+ $('#top').innerHTML=`<div class="meta">${tod?'🎉 Hôm nay anh chị đã tụng xong '+tod+' phẩm':'Hôm nay nên tụng'}</div><div class="pt">Phẩm ${p.so}: ${esc(p.ten)}</div><div class="pbar"><i style="width:${d/48*100}%"></i></div><div class="meta">Đã tụng ${d}/48 phẩm${streak?' · 🔥 '+streak+' ngày liên tiếp':''}</div><div class="acts"><button class="pri" onclick="go(${cur})">📖 Tụng phẩm ${cur}</button>${d?'<button onclick="if(confirm(\'Bắt đầu lại vòng tụng mới?\')){S={done:{}};sv();draw()}">↺ Tụng vòng mới</button>':''}</div>`;
+ $('#grid').innerHTML=K.pham.slice(1).map(p=>`<button title="${esc(p.ten)}" class="${S.done[p.n]?'d':''} ${p.n==view?'c':''}" onclick="go(${p.n})">${p.n}</button>`).join('');
+ const v=K.pham[view],id=n=>'k:'+view+':'+n;
+ $('#read').innerHTML=`<div class="card"><div class="meta">Phẩm ${v.so} · ${v.rows.length} đoạn</div><div class="pt">${esc(v.ten)}</div><div class="chips"><button class="chip ${mode=='vi'?'on':''}" onclick="sm('vi')">Việt dịch</button><button class="chip ${mode=='ha'?'on':''}" onclick="sm('ha')">Hán Việt</button><button class="chip ${mode=='both'?'on':''}" onclick="sm('both')">Cả hai</button></div>
+ ${v.rows.map((r,i)=>`<div class="row">${mode!='vi'&&r.ha?`<div class="${mode=='both'?'ha':'vi'}">${esc(r.ha).replace(/\n/g,'<br>')}</div>`:''}${mode!='ha'&&r.vi?`<div class="vi">${esc(r.vi)}</div>`:''}<div class="acts">${markBtn(id(i),{type:'Câu kinh',text:r.vi||r.ha,ha:r.ha,src:'Phẩm '+v.so+': '+v.ten,link:'../tung-kinh/#'+view})}</div></div>`).join('')}
+ <div class="acts" style="margin-top:14px">${view?`<button class="pri" onclick="done()">${S.done[view]?'✓ Đã tụng ngày '+S.done[view].split('-').reverse().join('/'):'✓ Tụng xong phẩm này'}</button>`:''}${view>0?`<button onclick="go(${view-1})">← Phẩm trước</button>`:''}${view<48?`<button onclick="go(${view+1})">Phẩm sau →</button>`:''}</div></div>
+ <div class="card"><div class="meta">Lão Pháp Sư Tịnh Không giảng phẩm này trong ${v.taps.length} tập</div><div class="taps" style="margin-top:8px">${v.taps.map(t=>`<a class="btn" href="${KV}#/tap/${t}">Tập ${t}</a>`).join('')||'<span class="meta">Chưa có dữ liệu</span>'}</div><div class="acts"><a class="btn" href="${KV}#/kinh/${view}">📜 Mở phẩm trong trang Kinh</a></div></div>`}
+function go(n){view=n;history.replaceState(0,'','#'+n);draw();$('#read').scrollIntoView({behavior:'smooth'})}
+function sm(m){mode=m;localStorage.kvlt_tung_mode=m;draw()}
+function done(){if(S.done[view])delete S.done[view];else{S.done[view]=today();toast('Tùy hỷ công đức 🙏')}sv();draw()}
+</script></body></html>
