@@ -40,11 +40,18 @@ footer{margin-top:40px;text-align:center;color:var(--mute);font-size:.82em}
 <a class="card" href="tung-kinh/"><div class="ic">🪷</div><h3>Tụng kinh mỗi ngày</h3><p>Mỗi ngày tụng một phẩm trong 48 phẩm. Trang ghi nhớ anh chị đã tụng đến đâu và dẫn tới các tập giảng giải phẩm đó.</p><div class="go" id="tkp">Tụng hôm nay →</div></a>
 <a class="card" href="so-tay/"><div class="ic">📒</div><h3>Sổ tay cá nhân</h3><p>Lưu câu kinh và trích dẫn mình thích, ghi chú riêng. Dữ liệu nằm trên máy của anh chị, không cần tài khoản, và xuất ra tệp được.</p><div class="go" id="stp">Mở sổ tay →</div></a>
 </div>
+<div class="grid" style="margin-top:16px">
+<a class="card" href="mot-cau/"><div class="ic">🌅</div><h3>Một câu mỗi ngày</h3><p id="mcq">Mỗi ngày một câu nguyên văn lời giảng, kèm nút nghe đúng đoạn trong video gốc.</p><div class="go">Đọc câu hôm nay →</div></a>
+<a class="card" href="hoi-dap/"><div class="ic">❓</div><h3>Hỏi đáp Tịnh Độ</h3><p>Những câu người mới hay hỏi như "bận thì niệm thế nào", "hồi hướng ra sao", được trả lời bằng lời giảng nguyên văn có ghi rõ tập.</p><div class="go">Xem hỏi đáp →</div></a>
+<a class="card" href="niem-phat/"><div class="ic">🙏</div><h3>Niệm Phật cùng nhau</h3><p>Bộ đếm niệm Phật mỗi ngày có mục tiêu và chuỗi ngày liên tiếp, cùng các pháp hội niệm Phật online để vào niệm chung.</p><div class="go" id="npp">Niệm Phật →</div></a>
+</div>
 <h2>Sắp có</h2>
 <div class="grid">
-<div class="soon"><span class="tag">Sắp có</span><h3>🌅 Một câu mỗi ngày</h3><p>Mỗi sáng một câu nguyên văn lời giảng, kèm nút nghe đúng đoạn trong video gốc.</p></div>
-<div class="soon"><span class="tag">Sắp có</span><h3>🙏 Niệm Phật cùng nhau</h3><p>Các pháp hội niệm Phật online qua Zoom và bộ đếm niệm Phật hằng ngày.</p></div>
-<div class="soon"><span class="tag">Sắp có</span><h3>❓ Hỏi đáp Tịnh Độ</h3><p>Những câu người mới hay hỏi, được trả lời bằng trích dẫn có ghi rõ tập giảng.</p></div>
+<div class="soon"><span class="tag">Sắp có</span><h3>🌱 Lộ trình cho người mới</h3><p>10 bài nền tảng làm cửa vào trước khi đi sâu vào 374 tập.</p></div>
+<div class="soon"><span class="tag">Sắp có</span><h3>🕯️ Hộ niệm</h3><p>Hướng dẫn hộ niệm cho người thân lúc lâm chung, kèm danh sách đạo tràng hộ niệm.</p></div>
+<div class="soon"><span class="tag">Sắp có</span><h3>🎧 Kinh tụng và nghi thức</h3><p>Kinh A Di Đà, Vô Lượng Thọ và nghi thức niệm Phật, có âm thanh để tụng theo.</p></div>
+<div class="soon"><span class="tag">Sắp có</span><h3>🗺️ Bản đồ chùa, đạo tràng</h3><p>Chùa và đạo tràng Tịnh Độ, kèm lịch giảng của từng nơi.</p></div>
+<div class="soon"><span class="tag">Sắp có</span><h3>🎬 Clip ngắn</h3><p>Những đoạn 60 giây từ các tập giảng, mỗi clip dẫn về đúng đoạn trên trang.</p></div>
 </div>
 <footer>Nguồn lời giảng: tinhtong.vn · Bản kinh: langnghiem.com (Thích Đức Niệm & Cư sĩ Minh Chánh dịch)</footer>
 </main>
@@ -53,6 +60,7 @@ const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>(
 if(localStorage.kvlt_dark=='1')document.documentElement.classList.add('dark');$('#dk').onclick=()=>localStorage.kvlt_dark=+document.documentElement.classList.toggle('dark');
 try{const P=JSON.parse(localStorage.kvlt_prog||'{}'),n=Object.values(P).filter(Boolean).length;if(n)$('#kvp').textContent=`Học tiếp · đã xong ${n}/374 tập →`}catch(e){}
 try{const T=JSON.parse(localStorage.kvlt_tung||'{}'),d=Object.keys(T.done||{}).length;if(d)document.getElementById('tkp').textContent=`Tụng tiếp · đã xong ${d}/48 phẩm →`;const n=Object.keys(JSON.parse(localStorage.kvlt_notes||'{}')).length;if(n)document.getElementById('stp').textContent=`Mở sổ tay · ${n} mục đã lưu →`}catch(e){}
+try{const N=JSON.parse(localStorage.kvlt_np||'{}').d||{},t=new Date().toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'});if(N[t])document.getElementById('npp').textContent=`Niệm tiếp · hôm nay ${N[t].toLocaleString('vi-VN')} câu →`}catch(e){}
 const TZ={timeZone:'Asia/Ho_Chi_Minh'};
 fetch('lich-giang/lich-giang.json?'+Date.now()).then(r=>r.json()).then(j=>{const now=new Date(),w=new Date(+now+7*864e5),seen=new Set();
  const L=(j.events||[]).filter(e=>{if(seen.has(e.id))return false;seen.add(e.id);const en=e.endTime?new Date(e.endTime):new Date(+new Date(e.startTime)+3*36e5);return en>=now}).sort((a,b)=>a.startTime.localeCompare(b.startTime));

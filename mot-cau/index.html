@@ -1,0 +1,19 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Một câu mỗi ngày · Lời giảng Lão Pháp Sư Tịnh Không</title>
+<style>.hero{text-align:center;padding:30px 22px;border-radius:24px;background:radial-gradient(circle at 50% 0,var(--lotus2),transparent 75%),var(--card);border:1px solid var(--line);box-shadow:var(--sh)}
+.d{color:var(--gold);font-family:"Noto Serif",serif;letter-spacing:.04em}.q{font-family:"Noto Serif",serif;font-size:1.35em;line-height:1.7;margin:18px auto;max-width:700px}.q:before{content:"“";color:var(--lotus)}.q:after{content:"”";color:var(--lotus)}
+.hero .acts{justify-content:center}.mini{font-family:"Noto Serif",serif}</style></head><body>
+<main><h1>🌅 Một câu mỗi ngày</h1><p class="sub">Mỗi ngày một câu nguyên văn lời giảng của Lão Pháp Sư Tịnh Không, kèm nút nghe đúng đoạn trong video gốc. Mọi người mở trang trong cùng một ngày sẽ thấy cùng một câu.</p>
+<div class="hero" id="h"></div><h2 style="font-family:'Noto Serif',serif;font-size:1.1em;margin-top:26px">Những ngày trước</h2><div id="past"></div></main>
+<script src="../shared/ui.js"></script><script>
+const vn=d=>d.toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'});
+let D,P,off=0;
+function pick(ds){let h=2166136261;for(const c of ds+'kvlt'){h^=c.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return P[h%P.length]}
+fetch('../shared/quotes.json').then(r=>r.json()).then(j=>{D=j;P=j.q.filter(q=>q[3]&&q[2].length>=40&&q[2].length<=420);draw()});
+function card(q,big,ds){const [n,g,t,y]=q,src='Tập '+n+(D.titles[n]?' · '+D.titles[n]:'');const dd=new Date(ds+'T12:00:00+07:00').toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'numeric',year:'numeric'});
+ const acts=`<div class="acts"><a class="btn pri" target="_blank" href="${y}">▶ Nghe đúng đoạn giảng</a><a class="btn" href="${KV}#/tap/${n}/td">📖 Đọc tập ${n}</a>${markBtn('q:'+n+':'+t.slice(0,40),{type:'Trích dẫn',text:t,src,link:KV+'#/tap/'+n+'/td',yt:y})}<button onclick="share(${D.q.indexOf(q)})">📋 Chép để chia sẻ</button></div>`;
+ return big?`<div class="d">${dd}</div><div class="q">${esc(t)}</div><div class="meta" style="justify-content:center">Lão Pháp Sư Tịnh Không · ${esc(src)}</div>${acts}<div class="acts"><button onclick="off--;draw()">← Hôm trước</button>${off<0?'<button onclick="off=0;draw()">Hôm nay</button>':''}${off<0?'<button onclick="off++;draw()">Hôm sau →</button>':''}</div>`
+ :`<div class="card"><div class="meta">${dd} · ${esc(src)}</div><div class="mini">${esc(t)}</div>${acts}</div>`}
+function draw(){const now=new Date(),ds=vn(new Date(+now+off*864e5));$('#h').innerHTML=card(pick(ds),1,ds);
+ $('#past').innerHTML=[1,2,3,4,5,6].map(i=>{const d=vn(new Date(+now+(off-i)*864e5));return card(pick(d),0,d)}).join('')}
+function share(i){const [n,g,t,y]=D.q[i];navigator.clipboard.writeText('“'+t+'”\n— Lão Pháp Sư Tịnh Không, Kinh Vô Lượng Thọ tập '+n+'\n▶ Nghe: '+y+'\n🪷 '+location.origin+location.pathname).then(()=>toast('Đã chép, anh chị dán để chia sẻ nhé'))}
+</script></body></html>
