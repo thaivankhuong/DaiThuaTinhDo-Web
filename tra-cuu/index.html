@@ -1,31 +1,43 @@
 <!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Tra cứu theo chủ đề · 374 tập Kinh Vô Lượng Thọ</title>
 <style>.big{font-size:1.05em}.q{font-family:"Noto Serif",serif;font-size:1.02em}.sn{font-size:.95em}.cnt{color:var(--mute);font-size:.86em;margin:8px 2px}.bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold);width:0;transition:.2s}</style></head><body>
-<main><h1>🔎 Tra cứu theo chủ đề</h1><p class="sub">Gõ một chủ đề như "hồi hướng", "vọng niệm" hay "tín nguyện" để tìm các đoạn nguyên văn lời giảng của Lão Pháp Sư Tịnh Không trong 374 tập. Gõ không dấu cũng được.</p>
-<input id="s" type="search" class="big" placeholder="Nhập chủ đề cần tìm…" autofocus>
+<main><h1>🔎 Tra cứu theo chủ đề</h1><p class="sub">Hỏi bằng câu tự nhiên, như "tại sao phải đoạn tham sân si" hay "bận rộn thì niệm Phật thế nào". Trang sẽ tìm trong 374 tập các đoạn nguyên văn lời giảng của Lão Pháp Sư Tịnh Không nói về ý đó, đoạn sát nhất ở trên cùng.</p>
+<input id="s" type="search" class="big" placeholder="Hỏi một câu, ví dụ: tại sao phải đoạn tham sân si" autofocus>
 <div class="chips" id="sug"></div>
-<div class="chips"><button class="chip on" data-m="q">⭐ Trong trích dẫn quan trọng</button><button class="chip" data-m="f">📚 Trong toàn văn 374 tập</button></div>
+<div class="chips"><button class="chip on" data-m="all">Tất cả</button><button class="chip" data-m="q">⭐ Chỉ trích dẫn quan trọng</button><button class="chip" data-m="f">📚 Chỉ toàn văn</button></div>
 <div id="prog" style="display:none"><div class="bar"><i id="pb"></i></div><div class="cnt" id="pt"></div></div>
 <div class="cnt" id="cnt"></div><div id="out"></div></main>
 <script src="../shared/ui.js"></script><script>
-const SUG=['hồi hướng','vọng niệm','tín nguyện','nhất tâm bất loạn','buông xả','thanh tịnh','bình đẳng','giác ngộ','vãng sanh','chí thành'];
+const SUG=['tại sao phải đoạn tham sân si','bận rộn thì niệm Phật thế nào','vọng niệm nhiều phải làm sao','hồi hướng như thế nào','thế nào là buông xả','làm sao giữ tâm thanh tịnh','điều kiện vãng sanh','đối xử với người khác'];
 $('#sug').innerHTML=SUG.map(s=>'<button data-s="'+s+'">'+s+'</button>').join('');
-const nz=s=>{let o='';for(const c of s.toLowerCase()){const d=c.normalize('NFD')[0];o+=d=='đ'?'d':d}return o};
-let D,mode='q',FT=null,loading=false;
-fetch('../shared/quotes.json').then(r=>r.json()).then(j=>{D=j;D.n=j.q.map(q=>nz(q[2]));const u=new URLSearchParams(location.search).get('q');if(u){$('#s').value=u}run()});
-function hl(t,qn){const tn=nz(t);let o='',i=0,k;while(qn&&(k=tn.indexOf(qn,i))>=0){o+=esc(t.slice(i,k))+'<mark>'+esc(t.slice(k,k+qn.length))+'</mark>';i=k+qn.length}return o+esc(t.slice(i))}
-function tt(n){return 'Tập '+n+(D.titles[n]?' · '+D.titles[n]:'')}
-function run(){const v=$('#s').value.trim(),qn=nz(v);history.replaceState(0,'',v?'?q='+encodeURIComponent(v):location.pathname);
- if(!v){$('#cnt').textContent='';$('#out').innerHTML='<div class="empty">Chọn một chủ đề gợi ý ở trên, hoặc tự gõ chủ đề anh chị muốn tìm.</div>';return}
- if(mode=='q'){const R=[];D.n.forEach((x,i)=>x.includes(qn)&&R.push(D.q[i]));
-  $('#cnt').textContent=R.length+' trích dẫn có "'+v+'"';
-  $('#out').innerHTML=R.slice(0,300).map(([n,g,t,y])=>'<div class="card"><div class="meta">'+esc(tt(n))+' · '+esc(g)+'</div><div class="q">'+hl(t,qn)+'</div><div class="acts">'+(y?'<a class="btn pri" target="_blank" href="'+y+'">▶ Nghe đúng đoạn giảng</a>':'')+'<a class="btn" href="'+KV+'#/tap/'+n+'/td">📖 Mở tập '+n+'</a>'+markBtn('q:'+n+':'+nz(t).slice(0,40),{type:'Trích dẫn',text:t,src:tt(n),link:KV+'#/tap/'+n+'/td',yt:y})+'</div></div>').join('')||'<div class="empty">Chưa thấy trong trích dẫn. Anh chị thử tìm "Trong toàn văn 374 tập".</div>'}
- else{if(!FT)return loadFT();const R=[];for(const [n,ps] of FT)ps.forEach((p,j)=>{const k=nz(p).indexOf(qn);if(k>=0)R.push([n,p,k,j])});
-  $('#cnt').textContent=R.length+' đoạn trong toàn văn có "'+v+'"'+(R.length>300?' (hiện 300 đoạn đầu)':'');
-  $('#out').innerHTML=R.slice(0,300).map(([n,p,k])=>{const a=Math.max(0,k-160),b=Math.min(p.length,k+qn.length+220);return '<div class="card"><div class="meta">'+esc(tt(n))+'</div><div class="sn">'+(a?'… ':'')+hl(p.slice(a,b),qn)+(b<p.length?' …':'')+'</div><div class="acts"><a class="btn" href="'+KV+'#/tap/'+n+'">📖 Đọc trong tập '+n+'</a>'+markBtn('f:'+n+':'+nz(p).slice(k,k+40),{type:'Đoạn giảng',text:p,src:tt(n),link:KV+'#/tap/'+n})+'</div></div>'}).join('')||'<div class="empty">Không tìm thấy.</div>'}}
-async function loadFT(){if(loading)return;loading=true;$('#prog').style.display='';const out=new Array(374);let done=0;
- const one=async n=>{const t=await (await fetch(KV+'data/tap'+String(n).padStart(3,'0')+'.js')).text();const j=JSON.parse(t.slice(t.indexOf(',')+1,t.lastIndexOf(')')));out[n-1]=[n,j.blocks.filter(b=>b.p).map(b=>b.p)];done++;$('#pb').style.width=done/3.74+'%';$('#pt').textContent='Đang nạp toàn văn: '+done+'/374 tập (chỉ nạp một lần)'};
+const STOP=new Set('tại sao vì làm thế nào nào gì là có không được những các của và thì mà cho với ở trong để một này đó nên hay hỏi cần phải lại chúng ta tôi bạn mình họ ra vào đến từ khi lúc rằng như vậy thế ấy đây kia rất cũng đã đang sẽ còn chỉ đều nhưng hoặc hãy xin ạ ơi nhé à ư chứ muốn biết giúp em anh chị'.split(' '));[...STOP].forEach(w=>STOP.add(w.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d')));
+const strip=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+const SYN={sinh:'sanh',sanh:'sanh'};
+const tok=(s,flat)=>{s=s.toLowerCase();if(flat)s=strip(s);return s.split(/[^\p{L}\p{N}]+/u).filter(Boolean).map(w=>SYN[w]||w)};
+let QD=null,FT=null,DOCS=[],IDX={},mode='all';
+fetch('../shared/quotes.json').then(r=>r.json()).then(j=>{QD=j;j.q.forEach((q,i)=>DOCS.push({k:'q',n:q[0],t:q[2],g:q[1],y:q[3]}));const u=new URLSearchParams(location.search).get('q');if(u)$('#s').value=u;run();loadFT()});
+function tt(n){return 'Tập '+n+(QD.titles[n]?' · '+QD.titles[n]:'')}
+function build(flat){const inv=new Map(),len=[];let tot=0;DOCS.forEach((d,i)=>{const w=tok(d.t,flat);len[i]=w.length;tot+=w.length;const tf=new Map();for(const x of w)tf.set(x,(tf.get(x)||0)+1);for(const [x,c] of tf){let a=inv.get(x);if(!a)inv.set(x,a=[]);a.push(i,c)}});return {inv,len,avg:tot/DOCS.length,N:DOCS.length,flat}}
+function index(flat){const key=(flat?'f':'a')+DOCS.length;return IDX[key]||(IDX={},IDX[key]=build(flat))}
+function search(v){const flat=strip(v.toLowerCase())==v.toLowerCase();const all=tok(v,flat),terms=[...new Set(all.filter(w=>!STOP.has(w)&&w.length>1||/^\d+$/.test(w)))];if(!terms.length)terms.push(...new Set(all));
+ const I=index(flat),sc=new Map(),hit=new Map();
+ for(const t of terms){const a=I.inv.get(t);if(!a)continue;const df=a.length/2,idf=Math.log(1+(I.N-df+.5)/(df+.5));for(let k=0;k<a.length;k+=2){const i=a[k],c=a[k+1],s=idf*c*2.2/(c+1.2*(.25+.75*I.len[i]/I.avg));sc.set(i,(sc.get(i)||0)+s);hit.set(i,(hit.get(i)||0)+1)}}
+ const cov=t=>terms.length>1?Math.pow(t/terms.length,1.5):1;
+ let R=[...sc].map(([i,s])=>[i,s*cov(hit.get(i))]).sort((x,y)=>y[1]-x[1]).slice(0,600);
+ const kept=terms.filter(t=>I.inv.has(t)),bi=[];for(let k=0;k+1<all.length;k++)if(!STOP.has(all[k])||!STOP.has(all[k+1]))bi.push(all[k]+' '+all[k+1]);
+ R=R.map(([i,s])=>{const d=DOCS[i],w=' '+tok(d.t,flat).join(' ')+' ';let b=0;for(const p of bi)if(w.includes(' '+p+' '))b+=1.5;const ph=' '+kept.join(' ')+' ';if(kept.length>1&&w.includes(ph))b+=3;if(d.k=='q')b+=1;return [i,s+b]}).sort((x,y)=>y[1]-x[1]);
+ if(mode!='all')R=R.filter(([i])=>DOCS[i].k==mode);
+ return {R,terms:kept,flat}}
+function hl(t,terms,flat){const set=new Set(terms);return t.split(/([\p{L}\p{N}]+)/u).map(w=>{let x=w.toLowerCase();if(flat)x=strip(x);x=SYN[x]||x;return set.has(x)?'<mark>'+esc(w)+'</mark>':esc(w)}).join('')}
+function snip(t,terms,flat){if(t.length<480)return t;const W=t.split(/(?<=[.!?;:])\s+/);let best=0,bs=-1;const set=new Set(terms);W.forEach((s,i)=>{const n=tok(s+' '+(W[i+1]||''),flat).filter(w=>set.has(w)).length;if(n>bs){bs=n;best=i}});let a=Math.max(0,best-1),o=W.slice(a,a+4).join(' ');return (a?'… ':'')+o+(a+4<W.length?' …':'')}
+function run(){const v=$('#s').value.trim();history.replaceState(0,'',v?'?q='+encodeURIComponent(v):location.pathname);
+ if(!v){$('#cnt').textContent='';$('#out').innerHTML='<div class="empty">Gõ một câu hỏi hay một chủ đề, ví dụ "tại sao phải đoạn tham sân si". Trang sẽ tìm các đoạn giảng nói về ý đó, đoạn liên quan nhất ở trên cùng.</div>';return}
+ const {R,terms,flat}=search(v);
+ $('#cnt').innerHTML=(R.length?'Tìm thấy '+R.length+' đoạn liên quan, xếp theo mức độ sát với câu hỏi':'Chưa tìm thấy')+(terms.length?' · ý chính: '+terms.map(t=>'<mark>'+esc(t)+'</mark>').join(' '):'')+(FT?'':' · <i>đang nạp thêm toàn văn 374 tập…</i>');
+ $('#out').innerHTML=R.slice(0,60).map(([i])=>{const d=DOCS[i],q=d.k=='q';return '<div class="card"><div class="meta">'+(q?'⭐ Trích dẫn quan trọng · ':'📚 Đoạn giảng · ')+esc(tt(d.n))+(q?' · '+esc(d.g):'')+'</div><div class="'+(q?'q':'sn')+'">'+hl(q?d.t:snip(d.t,terms,flat),terms,flat)+'</div><div class="acts">'+(d.y?'<a class="btn pri" target="_blank" href="'+d.y+'">▶ Nghe đúng đoạn giảng</a>':'')+'<a class="btn" href="'+KV+'#/tap/'+d.n+(q?'/td':'')+'">📖 Mở tập '+d.n+'</a>'+markBtn((q?'q:':'f:')+d.n+':'+d.t.slice(0,40),{type:q?'Trích dẫn':'Đoạn giảng',text:d.t,src:tt(d.n),link:KV+'#/tap/'+d.n+(q?'/td':''),yt:d.y})+'</div></div>'}).join('')||'<div class="empty">Anh chị thử diễn đạt khác, hoặc dùng ít chữ hơn.</div>'}
+async function loadFT(){$('#prog').style.display='';const out=new Array(374);let done=0;
+ const one=async n=>{const t=await (await fetch(KV+'data/tap'+String(n).padStart(3,'0')+'.js')).text();const j=JSON.parse(t.slice(t.indexOf(',')+1,t.lastIndexOf(')')));out[n-1]=j.blocks.filter(b=>b.p&&b.p.length>60).map(b=>({k:'f',n,t:b.p}));done++;$('#pb').style.width=done/3.74+'%';$('#pt').textContent='Đang nạp toàn văn: '+done+'/374 tập'};
  const ns=[...Array(374).keys()].map(i=>i+1);await Promise.all([...Array(8)].map(async()=>{while(ns.length)await one(ns.shift())}));
- FT=out;$('#prog').style.display='none';run()}
-let tm;$('#s').oninput=()=>{clearTimeout(tm);tm=setTimeout(run,250)};
+ out.forEach(a=>DOCS.push(...a));FT=1;IDX={};$('#prog').style.display='none';run()}
+let tm;$('#s').oninput=()=>{clearTimeout(tm);tm=setTimeout(run,350)};
 document.addEventListener('click',e=>{const s=e.target.closest('[data-s]');if(s){$('#s').value=s.dataset.s;run()}const m=e.target.closest('[data-m]');if(m){mode=m.dataset.m;document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x==m));run()}});
 </script></body></html>
