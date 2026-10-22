@@ -1,0 +1,13 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Lộ trình 30 ngày · Lời giảng Lão Pháp Sư Tịnh Không</title>
+<style>.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(46px,1fr));gap:6px;margin:16px 0}.days button{padding:10px 0;text-align:center;justify-content:center;border-radius:12px}.days .ok{background:#dcefdc;border-color:#8bc48b}.days .on{outline:2px solid var(--lotus)}.t{font-family:"Noto Serif",serif;line-height:1.8}.x{background:var(--lotus2);border-radius:14px;padding:14px;margin-top:10px}</style></head><body>
+<main><h1>🌱 Lộ trình 30 ngày cho người mới</h1><p class="sub">Mỗi ngày khoảng 10 phút: đọc một đoạn giảng nguyên văn, nghe một câu trích dẫn của Lão Pháp Sư Tịnh Không và làm một việc tu tập nhỏ. Thứ tự đi từ hiểu vì sao học Phật đến Tín, Nguyện, Hạnh. Tiến độ chỉ lưu trên máy của anh chị.</p>
+<div class="days" id="ds"></div><div id="d"></div></main>
+<script src="../shared/ui.js"></script><script>
+let L,T,S=JSON.parse(localStorage.kvlt_l30||'{}');const sv=()=>localStorage.kvlt_l30=JSON.stringify(S);
+Promise.all([fetch('l30.json').then(r=>r.json()),fetch('../shared/quotes.json').then(r=>r.json())]).then(([l,q])=>{L=l;T=q.titles;let n=+location.hash.slice(1)||0;if(!n){n=1;while(S[n]&&n<30)n++}day(n)});
+const src=n=>'Tập '+n+(T[n]?' · '+T[n]:'');
+function day(n){history.replaceState(0,'','#'+n);$('#ds').innerHTML=L.map((_,i)=>'<button class="'+(S[i+1]?'ok ':'')+(i+1==n?'on':'')+'" onclick="day('+(i+1)+')">'+(i+1)+'</button>').join('');const x=L[n-1],p=x.p[0],q=x.q[0];
+$('#d').innerHTML='<h2 style="font-family:Noto Serif,serif">Ngày '+n+': '+esc(x.t)+'</h2><div class="card"><div class="meta">📚 Đọc · '+esc(src(p[1]))+'</div><div class="t">'+esc(p[2])+'</div><div class="acts"><a class="btn" href="'+KV+'#/tap/'+p[1]+'/td">📖 Đọc cả tập '+p[1]+'</a></div></div>'+
+(q?'<div class="card"><div class="meta">🎧 Nghe · '+esc(src(q[1]))+'</div><div class="t">“'+esc(q[2])+'”</div><div class="acts"><a class="btn pri" target="_blank" href="'+q[3]+'">▶ Nghe đúng đoạn giảng</a></div></div>':'')+
+'<div class="x"><b>🙏 Việc nhỏ hôm nay:</b> '+esc(x.x)+'</div><div class="acts">'+(n>1?'<button onclick="day('+(n-1)+')">← Ngày '+(n-1)+'</button>':'')+'<button class="pri" onclick="S['+n+']=S['+n+']?0:new Date().toISOString().slice(0,10);sv();day('+n+')">'+(S[n]?'✓ Đã xong ngày này':'Đánh dấu đã xong')+'</button>'+(n<30?'<button onclick="day('+(n+1)+')">Ngày '+(n+1)+' →</button>':'')+'</div>'}
+</script></body></html>

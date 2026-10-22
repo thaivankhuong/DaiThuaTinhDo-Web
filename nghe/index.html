@@ -1,0 +1,18 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Nghe liên tục · Lời giảng Lão Pháp Sư Tịnh Không</title>
+<style>.g{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.g button.on{background:var(--lotus2);border-color:var(--lotus)}.v{position:relative;padding-top:56.25%;border-radius:18px;overflow:hidden;background:#000}.v>div,.v iframe{position:absolute;inset:0;width:100%;height:100%}
+.it{padding:10px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;font-family:"Noto Serif",serif;line-height:1.6}.it.on{background:var(--lotus2);border-color:var(--lotus)}.it small{display:block;font-family:inherit;color:var(--mut)}</style></head><body>
+<main><h1>🎧 Nghe liên tục</h1><p class="sub">Chọn một chủ đề, trang sẽ phát lần lượt từng đoạn giảng ngắn của Lão Pháp Sư Tịnh Không ngay trong video gốc. Tiện nghe khi lái xe hay làm việc nhà.</p>
+<div class="g" id="g"></div><div class="v"><div id="pl"></div></div>
+<div class="acts"><button onclick="go(cur-1)">⏮ Đoạn trước</button><button class="pri" onclick="go(cur+1)">Đoạn sau ⏭</button><label style="display:flex;gap:6px;align-items:center">Mỗi đoạn nghe <select id="dur"><option value="120">2 phút</option><option value="180" selected>3 phút</option><option value="300">5 phút</option><option value="0">đến hết video</option></select></label></div>
+<div id="cap" class="card"></div><div id="ls"></div></main>
+<script src="../shared/ui.js"></script><script src="https://www.youtube.com/iframe_api"></script><script>
+let P,T,L=[],cur=0,yp,tm;const vid=u=>{const m=u.match(/v=([\w-]+).*?t=(\d+)/);return [m[1],+m[2]]};
+Promise.all([fetch('pl.json').then(r=>r.json()),fetch('../shared/quotes.json').then(r=>r.json())]).then(([p,q])=>{P=p;T=q.titles;$('#g').innerHTML=P.map((x,i)=>'<button id="b'+i+'" onclick="pick('+i+')">'+x.i+' '+esc(x.t)+'</button>').join('');pick(0,1)});
+function onYouTubeIframeAPIReady(){}
+function pick(i,first){document.querySelectorAll('.g button').forEach(b=>b.classList.remove('on'));$('#b'+i).classList.add('on');L=P[i].r;
+$('#ls').innerHTML=L.map((x,j)=>'<div class="it" id="i'+j+'" onclick="go('+j+')">'+esc(x[2])+'<small>Tập '+x[1]+(T[x[1]]?' · '+esc(T[x[1]]):'')+'</small></div>').join('');go(0,first)}
+function go(j,noplay){if(j<0||j>=L.length)return;cur=j;const [v,t]=vid(L[j][3]),x=L[j];document.querySelectorAll('.it').forEach(e=>e.classList.remove('on'));$('#i'+j).classList.add('on');
+$('#cap').innerHTML='<div class="meta">Đoạn '+(j+1)+'/'+L.length+' · Tập '+x[1]+'</div><div style="font-family:Noto Serif,serif;line-height:1.7">'+esc(x[2])+'</div><div class="acts"><a class="btn" href="'+KV+'#/tap/'+x[1]+'/td">📖 Đọc tập '+x[1]+'</a></div>';
+const go2=()=>{noplay?yp.cueVideoById({videoId:v,startSeconds:t}):yp.loadVideoById({videoId:v,startSeconds:t})};
+if(!yp){const mk=()=>{yp=new YT.Player('pl',{videoId:v,playerVars:{start:t,playsinline:1},events:{onReady:()=>{if(!noplay)yp.playVideo()},onStateChange:e=>{clearTimeout(tm);if(e.data==1){const d=+$('#dur').value;if(d)tm=setTimeout(()=>go(cur+1),d*1e3)}if(e.data==0)go(cur+1)}}})};window.YT&&YT.Player?mk():(window.onYouTubeIframeAPIReady=mk)}else go2()}
+</script></body></html>
