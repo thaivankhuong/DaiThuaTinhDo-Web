@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-22T09:54:22+07:00",
+ "generatedAt": "2026-10-22T09:58:04+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -161,24 +161,6 @@
    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Huê Nghiêm, P. An Khánh, TP.HCM",
    "onlineUrl": null,
    "sourceUrl": "https://huenghiem.vn/lich-hoc-nghi-le-cua-dtph-nam-2026",
-   "verified": true,
-   "status": "Draft"
-  },
-  {
-   "id": "97a0417298ad",
-   "teacherSlug": "hoang-phap",
-   "teacherName": "Chư Tăng chùa Hoằng Pháp",
-   "title": "Cuộc thi 'Thắp Sáng Đèn Tuệ' lần VIII (thi thuộc Kinh Pháp Cú, không phải bài giảng)",
-   "topic": null,
-   "startTime": "2026-11-08T08:00:00+07:00",
-   "endTime": null,
-   "format": "Hybrid",
-   "venueName": "Chùa Hoằng Pháp",
-   "venueAddress": "Chùa Hoằng Pháp, 188/8 Ấp 23, xã Hóc Môn, TP.HCM",
-   "provinceName": "TP.HCM",
-   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Hoằng Pháp, xã Tân Hiệp, TP.HCM",
-   "onlineUrl": "https://forms.gle/YqsuMQMzome3bnHw6",
-   "sourceUrl": "https://www.facebook.com/vietnamchuahoangphap/",
    "verified": true,
    "status": "Draft"
   },
