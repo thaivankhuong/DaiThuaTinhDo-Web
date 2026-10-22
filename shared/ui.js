@@ -2,7 +2,7 @@ const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>(
 const KV='../kinh-vo-luong-tho/';
 (function(){if(localStorage.kvlt_dark=='1')document.documentElement.classList.add('dark');
 const here=location.pathname.split('/').filter(Boolean).pop();
-const N=[['../','🏠 Trang chủ'],['../kinh-vo-luong-tho/','📖 Kinh VLT'],['../tra-cuu/','🔎 Tra cứu'],['../hoan-canh/','🧭 Hoàn cảnh'],['../nghe/','🎧 Nghe'],['../lo-trinh/','🌱 30 ngày'],['../tung-kinh/','🪷 Tụng kinh'],['../mot-cau/','🌅 Một câu'],['../hoi-dap/','❓ Hỏi đáp'],['../niem-phat/','🙏 Niệm Phật'],['../so-tay/','📒 Sổ tay'],['../lich-giang/','📅 Lịch giảng']];
+const N=[['../','🏠 Trang chủ'],['../kinh-vo-luong-tho/','📖 Kinh VLT'],['../tra-cuu/','🔎 Tra cứu'],['../hoan-canh/','🧭 Hoàn cảnh'],['../nghe/','🎧 Nghe'],['../lo-trinh/','🌱 30 ngày'],['../thoi-khoa/','⏰ Thời khóa'],['../thuat-ngu/','📘 Thuật ngữ'],['../ho-niem/','🕯️ Hộ niệm'],['../ban-in/','🖨️ Bản in'],['../tung-kinh/','🪷 Tụng kinh'],['../mot-cau/','🌅 Một câu'],['../hoi-dap/','❓ Hỏi đáp'],['../niem-phat/','🙏 Niệm Phật'],['../so-tay/','📒 Sổ tay'],['../lich-giang/','📅 Lịch giảng']];
 document.body.insertAdjacentHTML('afterbegin',`<header><a class="br" href="../">🪷 Đại Thừa Tịnh Độ</a><nav>${N.map(([h,t])=>`<a href="${h}" class="${h.includes('/'+here+'/')?'on':''}">${t}</a>`).join('')}</nav><button id="dk">🌙</button></header><div class="toast" id="toast"></div>`);
 $('#dk').onclick=()=>localStorage.kvlt_dark=+document.documentElement.classList.toggle('dark');})();
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),1800)}

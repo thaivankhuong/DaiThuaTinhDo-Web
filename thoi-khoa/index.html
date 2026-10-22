@@ -1,0 +1,18 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Thời khóa tự chọn · Kinh Vô Lượng Thọ</title>
+<style>.g{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.g button.on{background:var(--lotus2);border-color:var(--lotus)}.st{display:flex;gap:12px;align-items:flex-start}.st input{width:22px;height:22px;margin-top:4px}.k{font-size:2em;font-family:"Noto Serif",serif;color:var(--gold)}</style></head><body>
+<main><h1>⏰ Thời khóa tự chọn</h1><p class="sub">Chọn thời gian anh chị có, trang sẽ gom sẵn phần niệm, tụng và đọc cho buổi đó. Làm xong thì đánh dấu để giữ chuỗi ngày tu đều đặn. Mọi thứ chỉ lưu trên máy của anh chị.</p>
+<div class="card" style="text-align:center"><div class="k" id="sk"></div><div class="meta" style="justify-content:center">ngày liên tiếp đã làm thời khóa</div></div>
+<div class="g" id="g"></div><div id="b"></div></main>
+<script src="../shared/ui.js"></script><script>
+const today=()=>new Date().toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'});
+let S=JSON.parse(localStorage.kvlt_tk||'{"m":1,"d":{}}');const sv=()=>localStorage.kvlt_tk=JSON.stringify(S);
+const M=[['🌅 Sáng 5 phút',[['📿','Niệm 108 câu “A Di Đà Phật”','../niem-phat/'],['🌅','Đọc câu giảng hôm nay','../mot-cau/']]],
+['🌅 Sáng 15 phút',[['📿','Niệm Phật 10 phút (khoảng 300 câu)','../niem-phat/'],['🌅','Đọc câu giảng hôm nay','../mot-cau/'],['🙏','Hồi hướng công đức cho tất cả chúng sanh',null]]],
+['🌙 Tối 30 phút',[['🪷','Tụng một phẩm kinh hôm nay','../tung-kinh/'],['📿','Niệm Phật 15 phút','../niem-phat/'],['🌱','Học bài hôm nay trong Lộ trình 30 ngày','../lo-trinh/'],['🙏','Hồi hướng công đức cho tất cả chúng sanh',null]]],
+['🧓 Người lớn tuổi, người bệnh',[['📿','Niệm Phật nhẹ nhàng, nằm hay ngồi đều được, niệm thầm cũng được','../niem-phat/'],['🎧','Nghe một đoạn giảng về Tín, Nguyện','../nghe/'],['🙏','Phát nguyện cầu sanh Tây Phương',null]]]];
+function streak(){let n=0,d=new Date();if(!S.d[today()])d=new Date(+d-864e5);while(S.d[d.toLocaleDateString('sv',{timeZone:'Asia/Ho_Chi_Minh'})]){n++;d=new Date(+d-864e5)}return n}
+function draw(){$('#sk').textContent=streak();$('#g').innerHTML=M.map((m,i)=>'<button class="'+(i==S.m?'on':'')+'" onclick="S.m='+i+';sv();draw()">'+m[0]+'</button>').join('');const t=today(),dn=S.d[t]||{};
+$('#b').innerHTML='<div class="card">'+M[S.m][1].map((x,j)=>'<label class="st"><input type="checkbox" '+(dn[S.m+'-'+j]?'checked':'')+' onchange="tick('+j+',this.checked)"><div><b>'+x[0]+' '+esc(x[1])+'</b>'+(x[2]?'<div class="acts" style="margin:6px 0 10px"><a class="btn" href="'+x[2]+'">Mở →</a></div>':'<div style="height:10px"></div>')+'</div></label>').join('')+'</div>'}
+function tick(j,v){const t=today();S.d[t]=S.d[t]||{};if(v)S.d[t][S.m+'-'+j]=1;else delete S.d[t][S.m+'-'+j];if(!Object.keys(S.d[t]).length)delete S.d[t];sv();draw();if(M[S.m][1].every((_,k)=>S.d[t]&&S.d[t][S.m+'-'+k]))toast('Đã xong thời khóa hôm nay. A Di Đà Phật 🙏')}
+draw()
+</script></body></html>

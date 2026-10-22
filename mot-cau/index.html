@@ -10,10 +10,17 @@ let D,P,off=0;
 function pick(ds){let h=2166136261;for(const c of ds+'kvlt'){h^=c.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return P[h%P.length]}
 fetch('../shared/quotes.json').then(r=>r.json()).then(j=>{D=j;P=j.q.filter(q=>q[3]&&q[2].length>=40&&q[2].length<=420);draw()});
 function card(q,big,ds){const [n,g,t,y]=q,src='Tập '+n+(D.titles[n]?' · '+D.titles[n]:'');const dd=new Date(ds+'T12:00:00+07:00').toLocaleDateString('vi-VN',{weekday:'long',day:'numeric',month:'numeric',year:'numeric'});
- const acts=`<div class="acts"><a class="btn pri" target="_blank" href="${y}">▶ Nghe đúng đoạn giảng</a><a class="btn" href="${KV}#/tap/${n}/td">📖 Đọc tập ${n}</a>${markBtn('q:'+n+':'+t.slice(0,40),{type:'Trích dẫn',text:t,src,link:KV+'#/tap/'+n+'/td',yt:y})}<button onclick="share(${D.q.indexOf(q)})">📋 Chép để chia sẻ</button></div>`;
+ const acts=`<div class="acts"><a class="btn pri" target="_blank" href="${y}">▶ Nghe đúng đoạn giảng</a><a class="btn" href="${KV}#/tap/${n}/td">📖 Đọc tập ${n}</a>${markBtn('q:'+n+':'+t.slice(0,40),{type:'Trích dẫn',text:t,src,link:KV+'#/tap/'+n+'/td',yt:y})}<button onclick="share(${D.q.indexOf(q)})">📋 Chép để chia sẻ</button><button onclick="img(${D.q.indexOf(q)})">🖼️ Tạo ảnh chia sẻ</button></div>`;
  return big?`<div class="d">${dd}</div><div class="q">${esc(t)}</div><div class="meta" style="justify-content:center">Lão Pháp Sư Tịnh Không · ${esc(src)}</div>${acts}<div class="acts"><button onclick="off--;draw()">← Hôm trước</button>${off<0?'<button onclick="off=0;draw()">Hôm nay</button>':''}${off<0?'<button onclick="off++;draw()">Hôm sau →</button>':''}</div>`
  :`<div class="card"><div class="meta">${dd} · ${esc(src)}</div><div class="mini">${esc(t)}</div>${acts}</div>`}
 function draw(){const now=new Date(),ds=vn(new Date(+now+off*864e5));$('#h').innerHTML=card(pick(ds),1,ds);
  $('#past').innerHTML=[1,2,3,4,5,6].map(i=>{const d=vn(new Date(+now+(off-i)*864e5));return card(pick(d),0,d)}).join('')}
 function share(i){const [n,g,t,y]=D.q[i];navigator.clipboard.writeText('“'+t+'”\n— Lão Pháp Sư Tịnh Không, Kinh Vô Lượng Thọ tập '+n+'\n▶ Nghe: '+y+'\n🪷 '+location.origin+location.pathname).then(()=>toast('Đã chép, anh chị dán để chia sẻ nhé'))}
+function img(i){const [n,g,t]=D.q[i],c=document.createElement('canvas');c.width=c.height=1080;const x=c.getContext('2d');
+const gr=x.createLinearGradient(0,0,0,1080);gr.addColorStop(0,'#fbf3e4');gr.addColorStop(1,'#f3dfe3');x.fillStyle=gr;x.fillRect(0,0,1080,1080);
+x.strokeStyle='#c9a24a';x.lineWidth=3;x.strokeRect(50,50,980,980);x.fillStyle='#c9a24a';x.textAlign='center';x.font='600 64px "Noto Serif",serif';x.fillText('🪷',540,170);
+let fs=t.length>300?40:t.length>180?46:54;x.font='600 '+fs+'px "Noto Serif",serif';x.fillStyle='#3b2a1f';const W=t.split(' '),L=[];let l='“';
+for(const w of W){if(x.measureText(l+w).width>860){L.push(l.trim());l=''}l+=w+' '}L.push(l.trim()+'”');const lh=fs*1.55;let y=560-L.length*lh/2+fs/2;
+for(const s of L){x.fillText(s,540,y);y+=lh}x.font='500 32px "Be Vietnam Pro",sans-serif';x.fillStyle='#8a6a3a';x.fillText('— Lão Pháp Sư Tịnh Không · Kinh Vô Lượng Thọ, tập '+n,540,940);
+c.toBlob(b=>{const f=new File([b],'kvlt-tap'+n+'.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]}))navigator.share({files:[f]}).catch(()=>{});else{const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=f.name;a.click();toast('Đã tải ảnh về máy')}})}
 </script></body></html>
