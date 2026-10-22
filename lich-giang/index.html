@@ -23,7 +23,7 @@ main{max-width:960px;margin:0 auto;padding:22px 16px 60px}
 .foot{margin-top:26px;font-size:.82em;color:var(--mute)}
 @media(max-width:560px){.ev{grid-template-columns:64px 1fr;gap:10px}.hero h1{font-size:1.3em}}
 </style></head><body>
-<header><b>🪷 Lịch giảng pháp</b><nav><a class="nb" href="../">📖 Kinh Vô Lượng Thọ</a><button class="nb" id="dk">🌙</button></nav></header>
+<header><b>🪷 Lịch giảng pháp</b><nav><a class="nb" href="../">🏠 Trang chủ</a><a class="nb" href="../kinh-vo-luong-tho/">📖 Kinh Vô Lượng Thọ</a><button class="nb" id="dk">🌙</button></nav></header>
 <main><div class="hero"><h1>Lịch giảng pháp sắp tới</h1><p>Các buổi giảng của chư Tôn đức, gom từ trang chính thức của chùa và quý thầy. Mỗi buổi đều có link bài gốc để anh chị kiểm lại.</p></div>
 <div class="bar"><div class="chips" id="rg"><span class="chip on" data-d="7">7 ngày tới</span><span class="chip" data-d="30">30 ngày</span><span class="chip" data-d="0">Tất cả</span></div>
 <select id="ft"><option value="">Tất cả thầy / chùa</option></select><select id="fp"><option value="">Mọi tỉnh</option></select>
@@ -32,7 +32,7 @@ main{max-width:960px;margin:0 auto;padding:22px 16px 60px}
 <div id="list"></div><p class="foot" id="foot"></p></main>
 <script>
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-if(localStorage.kvDark==1)document.documentElement.classList.add('dark');$('#dk').onclick=()=>localStorage.kvDark=+document.documentElement.classList.toggle('dark');
+if(localStorage.kvlt_dark=='1')document.documentElement.classList.add('dark');$('#dk').onclick=()=>localStorage.kvlt_dark=+document.documentElement.classList.toggle('dark');
 let EV=[],days=7;const TZ={timeZone:'Asia/Ho_Chi_Minh'};
 const dkey=d=>d.toLocaleDateString('en-CA',TZ),hm=d=>d.toLocaleTimeString('vi-VN',{...TZ,hour:'2-digit',minute:'2-digit'});
 fetch('lich-giang.json?'+Date.now()).then(r=>r.json()).then(j=>{const seen=new Map();(j.events||[]).forEach(e=>{const k=e.id||[e.teacherSlug,e.startTime,e.venueName||e.onlineUrl].join('|');if(!seen.has(k))seen.set(k,e)});
