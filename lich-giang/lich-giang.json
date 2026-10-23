@@ -1,7 +1,25 @@
 {
- "generatedAt": "2026-10-22T09:58:04+07:00",
+ "generatedAt": "2026-10-23T08:06:35+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
+  {
+   "id": "97bfadeb3885",
+   "teacherSlug": "vien-minh",
+   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
+   "title": "Thời khóa Sám hối và Pháp thoại (chưa ghi tên thầy)",
+   "topic": null,
+   "startTime": "2026-10-23T18:45:00+07:00",
+   "endTime": "2026-10-23T20:15:00+07:00",
+   "format": "InPerson",
+   "venueName": "Thiền viện Tổ đình Bửu Long",
+   "venueAddress": "Bảo Tháp Gotama, Tổ Đình Bửu Long, 81 Nguyễn Xiển, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo.php?fbid=1592122052956203",
+   "verified": true,
+   "status": "Draft"
+  },
   {
    "id": "57ee47727d16",
    "teacherSlug": "tam-tam",
@@ -89,6 +107,24 @@
    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Phật học Xá Lợi, 89 Bà Huyện Thanh Quan, P. Xuân Hòa, TP.HCM",
    "onlineUrl": null,
    "sourceUrl": "https://xaloipagoda.com/lich-giang-phap-cua-tt-thich-thien-thuan/",
+   "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "97b56e30511b",
+   "teacherSlug": "vien-minh",
+   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
+   "title": "Đại lễ Dâng Y Kathina PL.2570 - DL.2026 tại Tổ đình Bửu Long",
+   "topic": null,
+   "startTime": "2026-10-26T00:00:00+07:00",
+   "endTime": "2026-10-26T23:59:00+07:00",
+   "format": "Hybrid",
+   "venueName": "Thiền viện Tổ đình Bửu Long",
+   "venueAddress": "Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "onlineUrl": "https://www.youtube.com/@todinhbuulong",
+   "sourceUrl": "https://ptnhan.com/lich-dang-y-kathina/",
    "verified": false,
    "status": "Draft"
   },
