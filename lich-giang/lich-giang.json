@@ -1,25 +1,7 @@
 {
- "generatedAt": "2026-10-23T10:49:48+07:00",
+ "generatedAt": "2026-10-24T14:48:32+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
-  {
-   "id": "97bfadeb3885",
-   "teacherSlug": "vien-minh",
-   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
-   "title": "Thời khóa Sám hối và Pháp thoại (chưa ghi tên thầy)",
-   "topic": null,
-   "startTime": "2026-10-23T18:45:00+07:00",
-   "endTime": "2026-10-23T20:15:00+07:00",
-   "format": "InPerson",
-   "venueName": "Thiền viện Tổ đình Bửu Long",
-   "venueAddress": "Bảo Tháp Gotama, Tổ Đình Bửu Long, 81 Nguyễn Xiển, TP.HCM",
-   "provinceName": "TP.HCM",
-   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
-   "onlineUrl": null,
-   "sourceUrl": "https://www.facebook.com/photo.php?fbid=1592122052956203",
-   "verified": true,
-   "status": "Draft"
-  },
   {
    "id": "57ee47727d16",
    "teacherSlug": "tam-tam",
@@ -89,6 +71,24 @@
    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Bửu Sơn, 24 Xóm Vôi, P. Chợ Lớn, TP.HCM",
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/photo/?fbid=1611439654357315",
+   "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "c334159b28db",
+   "teacherSlug": "vien-minh",
+   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
+   "title": "Lễ Đặt Bát tại Bồ Đề Phật Cảnh (Chư Tăng 22 vị, Tu Nữ 22 vị; không có thuyết pháp, không ghi tên thầy)",
+   "topic": null,
+   "startTime": "2026-10-25T09:30:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": "Thiền viện Tổ đình Bửu Long",
+   "venueAddress": "Bồ Đề Phật Cảnh, Tổ Đình Bửu Long, 81 Nguyễn Xiển, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo.php?fbid=1593003436201398",
    "verified": true,
    "status": "Draft"
   },
