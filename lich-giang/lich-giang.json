@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-27T10:55:29+07:00",
+ "generatedAt": "2026-10-28T09:07:11+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -17,6 +17,24 @@
    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Huê Nghiêm, P. An Khánh, TP.HCM",
    "onlineUrl": null,
    "sourceUrl": "https://huenghiem.vn/lich-hoc-nghi-le-cua-dtph-nam-2026",
+   "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "e2a8835efbbf",
+   "teacherSlug": "tam-tam",
+   "teacherName": "Sư cô Tâm Tâm",
+   "title": "Sư cô Tâm Tâm — Vi Diệu Pháp - Nghiệp (Tịnh xá Pháp Huệ, CN 01/11)",
+   "topic": null,
+   "startTime": "2026-11-01T07:20:00+07:00",
+   "endTime": "2026-11-01T09:40:00+07:00",
+   "format": "InPerson",
+   "venueName": "Tịnh Xá Pháp Huệ",
+   "venueAddress": "Tịnh xá Pháp Huệ - Bình Tân, 246/31A Lê Văn Quới, P. Bình Trị Đông, Q. Bình Tân, TP. Hồ Chí Minh",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tịnh Xá Pháp Huệ, 246/31A Lê Văn Quới, P. Bình Hưng Hòa A, Q. Bình Tân, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo/?fbid=1095544480145456&set=pcb.1095546473478590",
    "verified": true,
    "status": "Draft"
   },
