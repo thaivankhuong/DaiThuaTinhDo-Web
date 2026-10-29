@@ -1,25 +1,7 @@
 {
- "generatedAt": "2026-10-28T09:07:11+07:00",
+ "generatedAt": "2026-10-29T17:10:12+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
-  {
-   "id": "7bc1d2f69122",
-   "teacherSlug": "tri-quang",
-   "teacherName": "Đại lão Hòa thượng; Đức Pháp chủ GHPGVN Trí Quảng",
-   "title": "Lễ Vía Bồ-tát Quan Thế Âm - chùa Huê Nghiêm",
-   "topic": null,
-   "startTime": "2026-10-28T05:45:00+07:00",
-   "endTime": "2026-10-28T09:15:00+07:00",
-   "format": "InPerson",
-   "venueName": "Chùa Huê Nghiêm",
-   "venueAddress": "Chùa Huê Nghiêm, P. An Khánh, TP.HCM",
-   "provinceName": "TP.HCM",
-   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Huê Nghiêm, P. An Khánh, TP.HCM",
-   "onlineUrl": null,
-   "sourceUrl": "https://huenghiem.vn/lich-hoc-nghi-le-cua-dtph-nam-2026",
-   "verified": true,
-   "status": "Draft"
-  },
   {
    "id": "e2a8835efbbf",
    "teacherSlug": "tam-tam",
