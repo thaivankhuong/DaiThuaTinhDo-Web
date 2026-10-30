@@ -68,7 +68,7 @@ a.ib{text-decoration:none;display:inline-flex;align-items:center}
 .krow .ha{font-family:"Noto Serif",Georgia,serif;font-style:italic;color:var(--mute);font-size:.92em;line-height:1.75;margin-bottom:6px}.krow .vi{font-family:"Noto Serif",Georgia,serif;line-height:1.85}
 .krow .lb{font:600 .68em "Be Vietnam Pro",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-right:6px;font-style:normal}
 .krow mark,.kbox mark{background:color-mix(in srgb,var(--gold2) 70%,transparent);color:inherit;border-radius:3px}
-.krow.tap mark{background:color-mix(in srgb,var(--lotus2) 90%,transparent)}
+.krow.tap mark{background:color-mix(in srgb,var(--lotus2) 90%,transparent)}.krow mark.weak,.krow.tap mark.weak{background:color-mix(in srgb,var(--lotus2) 35%,transparent)}
 .kbox{background:linear-gradient(135deg,var(--side),var(--card));border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:6px 16px 16px 6px;padding:12px 16px;margin:14px 0;box-shadow:var(--sh)}
 .kbox h2{font-size:1.1em;margin:0 0 6px}.kref{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;color:var(--ink);transition:transform .15s,box-shadow .15s}.kref:hover{transform:translateY(-2px);box-shadow:var(--sh)}
 .kref .kt{font-family:"Noto Serif",Georgia,serif;font-style:italic;line-height:1.7;white-space:pre-line}.kref small{color:var(--mute)}
@@ -165,14 +165,23 @@ function openPn(t,k,needle){const e=EP[t];if(!e)return;if(!e.nv)return ensureNV(
  $('#pnT').textContent='📖 Tập '+String(t).padStart(3,'0')+' · Nguyên văn';$('#pnS').textContent=sec;
  $('#pnB').innerHTML=`<article class="nv">${body}</article>`;const was=!!PN;PN={t,k};
  $('#pn').classList.add('on');$('#pbk').classList.add('on');$('#pn').setAttribute('aria-hidden','false');
- setTimeout(()=>{const h=document.getElementById('pnhit');if(h)h.scrollIntoView({behavior:was?'smooth':'auto',block:'center'})},was?30:380)}
+ setTimeout(()=>{const h=document.getElementById('pnm')||document.getElementById('pnhit');if(h)h.scrollIntoView({behavior:was?'smooth':'auto',block:'center'})},was?30:380)}
 function openQ(t,a,b){const q=EP[t].td[a].q[b];openPn(t,q.b,q.t)}
 
 const KP=()=>D.kinh.pham,kName=n=>{const p=KP()[n];return n?`Phẩm ${n} · ${p.ten}`:'Đề Kinh'};
 const kRead=()=>D.kinh?KP().filter(p=>P['k'+p.n]).length:0;
 const kMaps=f=>D.kinh?D.kinh.map.map((m,i)=>({...m,i})).filter(f):[];
+function kNorm(s){let o='',m=[];for(let i=0;i<s.length;i++){let c=s[i].normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace('đ','d');if(/[a-z0-9]/.test(c)){o+=c;m.push(i)}else if(o&&o[o.length-1]!=' '){o+=' ';m.push(i)}}return{o,m}}
+function kToks(s){return kNorm(s).o.split(' ').filter(Boolean)}
+function kSim(a,b){if(!a.length||!b.length)return 0;const c={};a.forEach(t=>c[t]=(c[t]||0)+1);let k=0;b.forEach(t=>{if(c[t]>0){c[t]--;k++}});return 2*k/(a.length+b.length)}
+function kUnits(s){const u=[],re=s.includes('\n')?/[^\n]+/g:/[^.;:!?]+[.;:!?]*/g;let x;while((x=re.exec(s))){const t=x[0];const a=x.index+t.search(/\S|$/),b=x.index+t.replace(/\s+$/,'').length;if(b>a)u.push([a,b])}return u}
+function kFind(s,nd){if(!s||!nd)return null;const N=kNorm(s),q=kNorm(nd).o.trim();if(!q)return null;const j=(' '+N.o+' ').indexOf(' '+q+' ');if(j>=0){let a=N.m[j],b=N.m[j+q.length-1]+1;if(s.includes('\n')){a=s.lastIndexOf('\n',a-1)+1;const e=s.indexOf('\n',b);b=e<0?s.length:e}return{a,b,sc:1,u:null}}
+ const qt=q.split(' '),U=kUnits(s);let best=null;for(let i=0;i<U.length;i++)for(let w=1;w<=4&&i+w<=U.length;w++){const sc=kSim(qt,kToks(s.slice(U[i][0],U[i+w-1][1])));if(!best||sc>best.sc+1e-9)best={a:U[i][0],b:U[i+w-1][1],sc,u:[i,w]}}return best&&best.sc>=0.3?best:null}
+function kHL(r,nd){const F=['ha','vi'].filter(f=>r[f]);let best=null;F.forEach(f=>{const h=kFind(r[f],nd);if(h&&(!best||h.sc>best.sc))best=Object.assign(h,{f})});if(!best)return{};const out={};out[best.f]=[best.a,best.b,best.sc>=0.6?'':'weak'];
+ const o=F.find(f=>f!=best.f);if(o){const Us=kUnits(r[best.f]),Uo=kUnits(r[o]);if(Us.length==Uo.length&&Us.length>1){let i=best.u?best.u[0]:Us.findIndex(u=>u[1]>best.a),w=best.u?best.u[1]:1;if(!best.u){const e=Us.findIndex(u=>u[1]>=best.b);w=Math.max(1,e-i+1)}if(i>=0)out[o]=[Uo[i][0],Uo[Math.min(Uo.length-1,i+w-1)][1],'weak']}}return out}
+function kSpan(s,x){return x?esc(s.slice(0,x[0]))+`<mark class="${x[2]}" id="${x[2]?'':'pnm'}">`+esc(s.slice(x[0],x[1]))+'</mark>'+esc(s.slice(x[1])):esc(s)}
 function kMark(s,nd,q){let h=esc(s);if(nd){const e=esc(nd);h=h.split(e).join('<mark>'+e+'</mark>')}else if(q){h=h.replace(new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),m=>'<mark>'+m+'</mark>')}return h}
-function kRows(n,hl){return KP()[n].rows.map((r,i)=>{const H=hl&&hl.row==i;return `<div class="krow ${H&&hl.tap?'tap':''}" id="${H?'pnhit':''}" data-r="${i}">${r.ha!=null?`<div class="ha ks"><span class="lb">Phiên âm</span>${H?kMark(r.ha,hl.nd,hl.q):esc(r.ha)}</div>`:''}${r.vi!=null?`<div class="vi ks"><span class="lb">Việt dịch</span>${H&&hl.q?kMark(r.vi,null,hl.q):H&&!hl.nd?'<mark>'+esc(r.vi)+'</mark>':esc(r.vi)}</div>`:''}${r.x?`<div class="vi ks">${esc(r.x)}</div>`:''}</div>`}).join('')}
+function kRows(n,hl){return KP()[n].rows.map((r,i)=>{const H=hl&&hl.row==i;if(H&&hl.nd){const X=kHL(r,hl.nd);return `<div class="krow ${hl.tap?'tap':''}" id="pnhit" data-r="${i}">${r.ha!=null?`<div class="ha ks"><span class="lb">Phiên âm</span>${kSpan(r.ha,X.ha)}</div>`:''}${r.vi!=null?`<div class="vi ks"><span class="lb">Việt dịch</span>${kSpan(r.vi,X.vi)}</div>`:''}${r.x?`<div class="vi ks">${esc(r.x)}</div>`:''}</div>`}return `<div class="krow ${H&&hl.tap?'tap':''}" id="${H?'pnhit':''}" data-r="${i}">${r.ha!=null?`<div class="ha ks"><span class="lb">Phiên âm</span>${H?kMark(r.ha,hl.nd,hl.q):esc(r.ha)}</div>`:''}${r.vi!=null?`<div class="vi ks"><span class="lb">Việt dịch</span>${H&&hl.q?kMark(r.vi,null,hl.q):H&&!hl.nd?'<mark>'+esc(r.vi)+'</mark>':esc(r.vi)}</div>`:''}${r.x?`<div class="vi ks">${esc(r.x)}</div>`:''}</div>`}).join('')}
 const kChips=n=>{const main=[...new Set(kMaps(m=>m.pham==n&&m.how!='xref').map(m=>m.tap))].sort((a,b)=>a-b),xr=[...new Set(kMaps(m=>m.pham==n&&m.how=='xref'&&m.sure).map(m=>m.tap))].sort((a,b)=>a-b);
  const unsure=t=>kMaps(m=>m.pham==n&&m.tap==t&&m.how!='xref').every(m=>!m.sure);const rg=[];main.forEach(t=>{const l=rg[rg.length-1];if(l&&t==l[1]+1)l[1]=t;else rg.push([t,t])});
  const pad=x=>String(x).padStart(3,'0');let h='';
@@ -193,7 +202,7 @@ function vPham(n){const p=KP()[n];if(!p)return '<p>Không có phẩm này.</p>';
 function kBox(t){const ms=kMaps(m=>m.tap==t);if(!ms.length)return '';
  return `<div class="kbox"><h2>📜 Đoạn kinh được giảng</h2><small class="ph">Bấm để mở kinh văn ở khung bên phải. Đối chiếu theo kinh văn Pháp Sư trích trong bài giảng.</small>${ms.map(m=>{const r=KP()[m.pham].rows[m.row];return `<button class="kref" onclick="openK(${m.i})"><span class="tag g">${esc(kName(m.pham))}</span>${m.sure?'':'<span class="tag unc">chưa chắc</span>'}<div class="kt">${esc(m.nd||r.ha)}</div><small>${esc(m.note)}</small>${m.ev?`<div class="kev">🔎 Bằng chứng trong lời giảng: “${esc(m.ev.length>220?m.ev.slice(0,220)+'…':m.ev)}”</div>`:''}</button>`}).join('')}</div>`}
 function showPn(title,sub,html,was){$('#pnT').textContent=title;$('#pnS').textContent=sub;$('#pnB').innerHTML=html;PN=PN||{};$('#pn').classList.add('on');$('#pbk').classList.add('on');$('#pn').setAttribute('aria-hidden','false');
- setTimeout(()=>{const h=document.getElementById('pnhit');if(h)h.scrollIntoView({behavior:was?'smooth':'auto',block:'center'})},was?30:380)}
+ setTimeout(()=>{const h=document.getElementById('pnm')||document.getElementById('pnhit');if(h)h.scrollIntoView({behavior:was?'smooth':'auto',block:'center'})},was?30:380)}
 function openK(i){const m=D.kinh.map[i],was=!!PN;showPn('📜 '+kName(m.pham),m.sure?'Tập '+m.tap+' giảng đoạn này':'Tập '+m.tap+' · đối chiếu chưa chắc',`<article class="nv">${kRows(m.pham,{row:m.row,nd:m.nd,tap:1})}</article><p><a href="#/kinh/${m.pham}" onclick="closePn()">Mở ${esc(kName(m.pham))} trong Kinh gốc →</a></p><div class="srcbox">${kSrc()}</div>`,was)}
 function openKR(n,r,q){const was=!!PN;showPn('📜 '+kName(n),'Kết quả tìm: '+q,`<article class="nv">${kRows(n,{row:r,q})}</article><p><a href="#/kinh/${n}" onclick="closePn()">Mở ${esc(kName(n))} trong Kinh gốc →</a></p>`,was)}
 function closePn(){PN=null;$('#pn').classList.remove('on');$('#pbk').classList.remove('on');$('#pn').setAttribute('aria-hidden','true')}
