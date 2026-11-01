@@ -1,0 +1,67 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@400;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Thẻ ghi nhớ · Kinh Vô Lượng Thọ</title>
+<style>
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.bar select,.bar input[type=search]{font:inherit;font-size:.88em;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink)}.bar input[type=search]{flex:1;min-width:180px}
+.on2{background:var(--lotus2)!important;border-color:var(--lotus)!important}
+.ed{font-size:.82em;color:var(--mute);background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:8px 12px}
+.prog{display:flex;justify-content:space-between;font-size:.85em;color:var(--mute);margin:6px 2px}.pb{height:6px;background:var(--line);border-radius:9px;overflow:hidden}.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--lotus));transition:width .3s}
+.scene{perspective:1600px;margin:12px 0;user-select:none}
+.fc{position:relative;height:min(64vh,620px);transition:transform .6s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d;cursor:pointer}
+.fc.fl{transform:rotateY(180deg)}
+.fa{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh);display:flex;flex-direction:column;padding:22px 24px}
+.fr{justify-content:center;align-items:center;text-align:center;background:radial-gradient(circle at 50% 0,var(--lotus2),var(--card) 70%)}
+.fr .tp{font-size:.85em;color:var(--gold);font-weight:700;letter-spacing:.04em}.fr h2{font-family:"Noto Serif",serif;font-size:1.45em;margin:12px 0;line-height:1.4}.fr .hn{font-size:.8em;color:var(--mute)}
+.bk{transform:rotateY(180deg)}.bk .tx{flex:1;overflow:auto;font-family:"Noto Serif",serif;font-weight:400;line-height:1.85;white-space:pre-wrap;padding-right:6px;font-size:calc(1.02em * var(--fz,1))}
+.bk .hd{font-size:.8em;color:var(--mute);margin-bottom:8px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.bk .acts{margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.st{position:absolute;top:14px;right:16px;font-size:.75em;border-radius:999px;padding:2px 9px}.st.ok{background:#dff3e4;color:#25683a}.st.re{background:#fde7d6;color:#8a4a12}
+.nav2{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.nav2 button{padding:8px 16px}
+.empty{text-align:center;color:var(--mute);padding:40px}
+.kb{font-size:.78em;color:var(--mute);text-align:center;margin-top:8px}
+@media(max-width:600px){.fa{padding:16px}.fr h2{font-size:1.2em}.fc{height:68vh}.kb{display:none}}
+</style></head><body>
+<main><h1>🃏 Thẻ ghi nhớ · Kinh Vô Lượng Thọ</h1><p class="sub">Những đoạn giảng quan trọng của Lão Pháp Sư Tịnh Không. Mặt trước là chủ đề, bấm vào thẻ để lật ra nguyên văn trọn đoạn.</p>
+<p class="ed"><b>Ghi chú biên tập:</b> Chủ đề ở mặt trước là tên mục trong dàn ý (do NotebookLM lập), không phải lời Pháp Sư. Mặt sau là nguyên văn lời giảng, chép đúng từng chữ, không cắt bớt. Chế độ “Đoạn cốt lõi” lấy 3 đoạn mỗi tập trong số các trích dẫn quan trọng NotebookLM đã chọn, trải đều đầu, giữa và cuối bài giảng, mỗi đoạn thuộc một mục dàn ý khác nhau. Chọn “Tất cả trích dẫn” để xem đủ mọi đoạn.</p>
+<div class="bar"><button id="mTop" class="on2">⭐ Đoạn cốt lõi</button><button id="mAll">📚 Tất cả trích dẫn</button>
+<select id="fg"><option value="">Tất cả các tập</option></select><select id="fp"><option value="">Tất cả các phẩm</option></select>
+<select id="fs"><option value="">Mọi thẻ</option><option value="re">Cần ôn lại</option><option value="new">Chưa đánh dấu</option><option value="ok">Đã thuộc</option></select></div>
+<div class="bar"><input id="q" type="search" placeholder="Tìm trong nguyên văn hoặc chủ đề…"><button id="sh">🔀 Trộn</button><button id="so">↺ Theo thứ tự</button><button id="fm">A-</button><button id="f0">A</button><button id="fpl">A+</button></div>
+<div class="prog"><span id="cnt">Đang tải…</span><span id="stat"></span></div><div class="pb"><i id="pbi" style="width:0"></i></div>
+<div id="stage"><div class="empty">⏳ Đang tải thẻ…</div></div>
+<div class="nav2"><button id="pv">← Trước</button><button id="fl">🔄 Lật thẻ</button><button id="re" >🔁 Ôn lại</button><button id="ok" class="pri">✓ Đã thuộc</button><button id="nx">Sau →</button></div>
+<div class="kb">Phím tắt: Space lật thẻ · ← → chuyển thẻ · 1 Ôn lại · 2 Đã thuộc</div>
+</main>
+<script src="../shared/ui.js"></script><script>
+const S={mode:'top',cache:{},list:[],i:0,shuf:0,fl:0},LS='kvlt_fc_mark',FZ='kvlt_fc_fz';
+let MK={};try{MK=JSON.parse(localStorage[LS]||'{}')}catch(e){}
+let fz=+localStorage[FZ]||1;const setFz=v=>{fz=Math.min(1.6,Math.max(.8,v));localStorage[FZ]=fz;document.documentElement.style.setProperty('--fz',fz)};setFz(fz);
+const key=c=>c.t+'.'+c.a+'.'+c.b,pad=n=>String(n).padStart(3,'0');
+function load(m,cb){if(S.cache[m])return cb(S.cache[m]);$('#cnt').textContent='Đang tải dữ liệu…';fetch(m+'.json').then(r=>r.json()).then(d=>{S.cache[m]=d;cb(d)}).catch(()=>{$('#stage').innerHTML='<div class="empty">Không tải được dữ liệu thẻ. Anh chị tải lại trang thử nhé.</div>'})}
+function opts(d){const g=$('#fg'),p=$('#fp'),gv=g.value,pv=p.value;let h='<option value="">Tất cả các tập</option>';for(let a=1;a<=374;a+=10){const b=Math.min(a+9,374);h+=`<option value="${a}-${b}">Tập ${a}–${b}</option>`}g.innerHTML=h;g.value=gv;
+ const ps=[...new Set(d.map(c=>c.p).filter(Boolean))].sort((x,y)=>(+x.match(/\d+/)||0)-(+y.match(/\d+/)||0));p.innerHTML='<option value="">Tất cả các phẩm</option>'+ps.map(x=>`<option>${esc(x)}</option>`).join('');p.value=pv}
+function rnd(n){const a=[...Array(n).keys()];for(let i=n-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function apply(keep){const d=S.cache[S.mode];if(!d)return;const [ga,gb]=($('#fg').value||'1-374').split('-').map(Number),p=$('#fp').value,f=$('#fs').value,q=$('#q').value.trim().toLowerCase();
+ let L=d.filter(c=>c.t>=ga&&c.t<=gb&&(!p||c.p==p)&&(!f||(f=='new'?!MK[key(c)]:MK[key(c)]==f))&&(!q||(c.x+' '+c.g).toLowerCase().includes(q)));
+ if(S.shuf)L=rnd(L.length).map(i=>L[i]);const cur=S.list[S.i];S.list=L;S.i=keep&&cur?Math.max(0,L.indexOf(cur)):0;S.fl=0;draw()}
+function ytUrl(c){return c.v?`https://www.youtube.com/watch?v=${c.v}&t=${c.s||0}s`:''}
+function draw(){const L=S.list,n=L.length,c=L[S.i];const ok=Object.values(MK).filter(v=>v=='ok').length;
+ $('#cnt').textContent=n?`Thẻ ${S.i+1} / ${n}`:'0 thẻ';const inL=L.filter(x=>MK[key(x)]=='ok').length;$('#stat').textContent=n?`Đã thuộc ${inL}/${n} · Cần ôn ${L.filter(x=>MK[key(x)]=='re').length}`:'';$('#pbi').style.width=n?(100*(S.i+1)/n)+'%':'0';
+ if(!c){$('#stage').innerHTML='<div class="empty">Không có thẻ nào phù hợp bộ lọc.</div>';return}
+ const m=MK[key(c)],badge=m?`<span class="st ${m}">${m=='ok'?'✓ Đã thuộc':'🔁 Ôn lại'}</span>`:'';
+ const nv=`../kinh-vo-luong-tho/#/tap/${c.t}/nv/q${c.a}-${c.b}`,yt=ytUrl(c);
+ $('#stage').innerHTML=`<div class="scene"><div class="fc ${S.fl?'fl':''}" id="card"><div class="fa fr">${badge}<div class="tp">TẬP ${c.t}${c.p?' · '+esc(c.p):''}</div><h2>${esc(c.g.replace(/^\d+\.\s*/,''))}</h2><div class="hn">Chủ đề theo dàn ý (ghi chú biên tập) · bấm để lật xem nguyên văn</div></div>
+ <div class="fa bk">${badge}<div class="hd">Tập ${c.t} · ${esc(c.g)} — <i>nguyên văn lời giảng</i></div><div class="tx">${esc(c.x)}</div>
+ <div class="acts"><a class="btn" target="_blank" rel="noopener" href="${yt}" ${yt?'':'hidden'}>▶ Nghe đoạn giảng gốc</a><a class="btn" href="${nv}">📖 Xem trong nguyên văn</a><a class="btn" href="../kinh-vo-luong-tho/#/tap/${c.t}">🗂 Mở Tập ${c.t}</a>${markBtn('fc:'+key(c),{type:'Thẻ ghi nhớ',text:c.x,src:'Kinh Vô Lượng Thọ · Tập '+c.t,link:'../kinh-vo-luong-tho/#/tap/'+c.t+'/nv/q'+c.a+'-'+c.b,yt})}</div></div></div></div>`;
+ const el=$('#card');el.onclick=e=>{if(e.target.closest('a,button'))return;flip()};
+ el.ontouchstart=e=>{S.tx=e.touches[0].clientX;S.ty=e.touches[0].clientY};el.ontouchend=e=>{const dx=e.changedTouches[0].clientX-S.tx,dy=e.changedTouches[0].clientY-S.ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){e.preventDefault();go(dx<0?1:-1)}}}
+function flip(){S.fl=!S.fl;$('#card').classList.toggle('fl',S.fl)}
+function go(d){if(!S.list.length)return;S.i=(S.i+d+S.list.length)%S.list.length;S.fl=0;draw()}
+function mark(v){const c=S.list[S.i];if(!c)return;const k=key(c);if(MK[k]==v)delete MK[k];else MK[k]=v;localStorage[LS]=JSON.stringify(MK);toast(MK[k]?(v=='ok'?'Đã đánh dấu thuộc ✓':'Đã đưa vào Ôn lại'):'Đã bỏ đánh dấu');if($('#fs').value)apply(1);else go(1)}
+function mode(m){S.mode=m;$('#mTop').classList.toggle('on2',m=='top');$('#mAll').classList.toggle('on2',m=='all');load(m,d=>{opts(d);apply()})}
+$('#mTop').onclick=()=>mode('top');$('#mAll').onclick=()=>mode('all');
+['#fg','#fp','#fs'].forEach(s=>$(s).onchange=()=>apply());let qt;$('#q').oninput=()=>{clearTimeout(qt);qt=setTimeout(apply,250)};
+$('#sh').onclick=()=>{S.shuf=1;apply();toast('Đã trộn thẻ')};$('#so').onclick=()=>{S.shuf=0;apply()};
+$('#fm').onclick=()=>setFz(fz-.1);$('#f0').onclick=()=>setFz(1);$('#fpl').onclick=()=>setFz(fz+.1);
+$('#pv').onclick=()=>go(-1);$('#nx').onclick=()=>go(1);$('#fl').onclick=flip;$('#ok').onclick=()=>mark('ok');$('#re').onclick=()=>mark('re');
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea'))return;if(e.key==' '){e.preventDefault();flip()}else if(e.key=='ArrowRight')go(1);else if(e.key=='ArrowLeft')go(-1);else if(e.key=='1')mark('re');else if(e.key=='2')mark('ok')});
+mode('top');
+</script></body></html>
