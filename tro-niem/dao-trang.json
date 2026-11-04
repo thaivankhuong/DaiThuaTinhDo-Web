@@ -1,1 +1,22 @@
-[]
+[
+ {
+  "kind": "Ban hộ niệm",
+  "name": "Ban Hộ niệm chùa Hoằng Pháp",
+  "address": "Xã Tân Hiệp, Hóc Môn (địa chỉ cũ theo web chùa)",
+  "province": "TP.HCM",
+  "phone": "028.37130002 (số văn phòng chùa trên web chính thức); chuahoangphapvietnam@gmail.com",
+  "how": "Gọi văn phòng chùa để hỏi cách thỉnh hộ niệm.",
+  "sourceUrl": "https://chuahoangphap.com.vn/",
+  "verifiedAt": "2026-11-04"
+ },
+ {
+  "kind": "Nhà vãng sanh (lo tang lễ, không đi hộ niệm tại nhà)",
+  "name": "Vãng sanh đường chùa Vĩnh Nghiêm",
+  "address": "339 Nam Kỳ Khởi Nghĩa, P. Võ Thị Sáu, Q.3",
+  "province": "TP.HCM",
+  "phone": "(028) 3848 3153; Hotline 098.1212.165 (do Văn phòng chùa công bố)",
+  "how": "Liên hệ trực tiếp quý Thầy tại bàn hướng dẫn Vãng sanh đường hoặc văn phòng chùa; 7:30–11:00 và 13:30–17:00, ngoài giờ gọi hotline",
+  "sourceUrl": "https://giacngo.vn/vang-sanh-duong-chua-vinh-nghiem-post65960.html",
+  "verifiedAt": "2026-11-04"
+ }
+]
