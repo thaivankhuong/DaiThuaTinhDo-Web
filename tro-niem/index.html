@@ -1,0 +1,30 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Trợ niệm cộng đồng · Đại Thừa Tịnh Độ</title>
+<style>.t{font-family:"Noto Serif",serif;line-height:1.75}.em{display:block;width:100%;padding:22px;border-radius:20px;font-size:1.35em;font-weight:600;background:#eef3ee;border:2px solid #9bb59b;color:#2f4a2f;cursor:pointer}
+#guide{display:none}#guide.on{display:block}.cnt{font-size:3em;font-family:"Noto Serif",serif;color:var(--gold);text-align:center}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+#bed{display:none;position:fixed;inset:0;background:#111;color:#f3e3b0;z-index:99;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:"Noto Serif",serif}#bed.on{display:flex}#bed b{font-size:12vw;line-height:1.3}</style></head><body>
+<main><div style="background:#fff3cd;border:1px solid #e0c060;border-radius:12px;padding:10px 14px;margin-bottom:12px;color:#6b5000"><b>📝 Bản nháp · chờ duyệt.</b> Trang này đang chờ duyệt lại nội dung. Khi lo việc hộ niệm cho người thân, xin hỏi thêm đạo tràng hộ niệm gần nhà.</div>
+<h1>🤝 Trợ niệm cộng đồng</h1><p class="sub">Những việc người nhà có thể làm khi người thân sắp ra đi. Muốn đọc đầy đủ các đoạn giảng, xin xem trang <a href="../ho-niem/"><b>🕯️ Hộ niệm cơ bản</b></a>.</p>
+<button class="em" id="em">🕯️ Có người thân sắp ra đi</button>
+<div class="card" style="margin-top:14px"><h2 style="font-family:Noto Serif,serif;font-size:1.1em">🙏 Niệm Phật liên tục</h2><div id="au"></div>
+<div class="cnt" id="c">0</div><div class="meta" style="justify-content:center">câu anh chị đã niệm (chỉ lưu trên máy này)</div>
+<div class="acts" style="justify-content:center"><button class="btn pri" id="plus">+1 câu</button><button id="p108">+108</button><button id="bedb">🛏️ Chế độ bên giường bệnh</button></div></div>
+<div id="guide"><h2 style="font-family:Noto Serif,serif">Hướng dẫn từng bước cho gia đình</h2><p class="meta">Phần thân mỗi bước là nguyên văn lời giảng của Lão Pháp Sư Tịnh Không trong Kinh Vô Lượng Thọ. Tiêu đề do trang đặt để dễ tìm.</p><div id="st"></div></div>
+<h2 style="font-family:Noto Serif,serif;font-size:1.1em;margin-top:24px">📅 Sau khi người thân mất</h2><div class="card"><label>Ngày mất: <input type="date" id="dd"></label><p class="meta">Cách tính: ngày mất là ngày thứ 1. Thất thứ N là ngày thứ 7×N (tức ngày mất + 7×N − 1 ngày). Ngày 100 là ngày thứ 100. Mỗi nơi có thể tính khác, xin hỏi thêm chùa hoặc người lớn trong nhà.</p><div id="tb"></div></div>
+<h2 style="font-family:Noto Serif,serif;font-size:1.1em;margin-top:24px">📍 Đạo tràng hộ niệm theo tỉnh</h2><div class="card" id="dt"><div class="empty">Danh sách đang thu thập từ nguồn chính thức, chờ duyệt. Sẽ hiện tại đây sau khi được duyệt.</div></div>
+<h2 style="font-family:Noto Serif,serif;font-size:1.1em;margin-top:24px">💻 Phòng trợ niệm online</h2><div class="card"><div class="empty">Sắp có.</div></div></main>
+<div id="bed"><b>Nam Mô<br>A Di Đà Phật</b><div id="bc" style="font-size:2em;margin:16px">0</div><div style="opacity:.7">Chạm màn hình để đếm thêm một câu · <button id="bx">Thoát</button></div></div>
+<script src="../shared/ui.js"></script><script>
+let n=+localStorage.kvlt_tn||0,A=null,wl=null;const draw=()=>{$('#c').textContent=$('#bc').textContent=n.toLocaleString('vi-VN')},add=k=>{n+=k;localStorage.kvlt_tn=n;draw()};draw();
+$('#plus').onclick=()=>add(1);$('#p108').onclick=()=>add(108);
+fetch('audio.json').then(r=>r.json()).then(a=>{if(a.src){$('#au').innerHTML='<audio id="ap" loop controls src="'+esc(a.src)+'" style="width:100%"></audio><div class="meta">Nguồn: '+(a.sourceUrl?'<a target="_blank" href="'+esc(a.sourceUrl)+'">'+esc(a.credit||a.sourceUrl)+'</a>':esc(a.credit||''))+'</div>';A=$('#ap')}else $('#au').innerHTML='<div class="empty">Chưa có bản ghi niệm Phật chính thức. Bản ghi sẽ được thêm sau khi duyệt nguồn. Trong lúc chờ, gia đình có thể cùng niệm và bấm đếm bên dưới.</div>'});
+$('#em').onclick=()=>{if(A)A.play().catch(()=>{});$('#guide').classList.add('on');$('#guide').scrollIntoView({behavior:'smooth'})};
+fetch('steps.json').then(r=>r.json()).then(S=>$('#st').innerHTML=S.map(s=>'<div class="card"><h3>'+esc(s.h)+'</h3><div class="meta">📚 Lời giảng Lão Pháp Sư Tịnh Không · Tập '+s.n+'</div><div class="t">'+esc(s.t)+'</div><div class="acts">'+(s.y?'<a class="btn pri" target="_blank" href="'+s.y+'">▶ Nghe đoạn giảng gốc'+(s.ts?'':' (cả tập)')+'</a>':'')+'<a class="btn" href="'+KV+'#/tap/'+s.n+'/td">📖 Đọc tập '+s.n+'</a></div></div>').join(''));
+async function bed(on){$('#bed').classList.toggle('on',on);try{if(on)wl=await navigator.wakeLock.request('screen');else if(wl){await wl.release();wl=null}}catch(e){}}
+$('#bedb').onclick=()=>bed(true);$('#bx').onclick=e=>{e.stopPropagation();bed(false)};$('#bed').onclick=()=>add(1);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState=='visible'&&$('#bed').classList.contains('on'))bed(true)});
+const f=d=>d.toISOString().slice(0,10).split('-').reverse().join('/');
+$('#dd').onchange=()=>{const v=$('#dd').value;if(!v)return;const d=new Date(v+'T00:00:00Z'),at=k=>new Date(+d+(k-1)*864e5);
+ $('#tb').innerHTML='<table><tr><th>Lễ</th><th>Ngày thứ</th><th>Ngày dương</th></tr>'+[1,2,3,4,5,6,7].map(i=>'<tr><td>Thất '+i+(i==7?' (49 ngày)':'')+'</td><td>'+7*i+'</td><td data-k="'+7*i+'">'+f(at(7*i))+'</td></tr>').join('')+'<tr><td>100 ngày</td><td>100</td><td data-k="100">'+f(at(100))+'</td></tr></table>'};
+fetch('dao-trang.json').then(r=>r.json()).then(L=>{if(L.length)$('#dt').innerHTML=L.map(x=>'<div class="card"><b>'+esc(x.name)+'</b><div class="meta">'+esc([x.address,x.province,x.phone].filter(Boolean).join(' · '))+'</div>'+(x.sourceUrl?'<a target="_blank" href="'+esc(x.sourceUrl)+'">Nguồn</a>':'')+'</div>').join('')}).catch(()=>{});
+</script></body></html>
