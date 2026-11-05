@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-05T12:20:46+07:00",
+ "generatedAt": "2026-11-06T06:26:55+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -450,6 +450,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/trungtamtinhxa/posts/pfbid028sNwrnSmLfyrLgz757yzpKZtrTSHdsQCneuNKSqLVzcmNkByzFM14TxVRFT1AYxgl",
    "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "d761136f97fd",
+   "teacherSlug": null,
+   "teacherName": null,
+   "title": "Lớp Phật pháp ứng dụng (Sư cô Thích Nữ Diệu Hạnh), Chủ Nhật hằng tuần",
+   "topic": null,
+   "startTime": "2026-12-06T18:15:00+07:00",
+   "endTime": "2026-12-06T20:15:00+07:00",
+   "format": "InPerson",
+   "venueName": "Chùa Giác Ngộ",
+   "venueAddress": "Chùa Giác Ngộ, 92 Nguyễn Chí Thanh, P. Vườn Lài, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Giác Ngộ, 92 Nguyễn Chí Thanh, P. Vườn Lài, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo/?fbid=1128079316263086",
+   "verified": true,
    "status": "Draft"
   },
   {
