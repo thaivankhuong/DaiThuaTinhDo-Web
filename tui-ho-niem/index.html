@@ -1,0 +1,39 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Túi hộ niệm · Đại Thừa Tịnh Độ</title>
+<style>.t{font-family:"Noto Serif",serif;line-height:1.7}.it{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}.it input{margin-top:6px;transform:scale(1.3)}
+#out{display:none}#out.on{display:block}
+#card{width:85.6mm;height:53.98mm;box-sizing:border-box;border:1px solid #9bb59b;border-radius:3mm;background:#fffdf6;color:#222;padding:2.5mm 3mm;display:flex;gap:2.5mm;font-family:"Be Vietnam Pro",sans-serif;margin:12px auto}
+#card .l{flex:1;min-width:0;display:flex;flex-direction:column;font-size:6.2pt;line-height:1.3}#card h4{margin:0;font-family:"Noto Serif",serif;font-size:10pt;color:#2f4a2f}
+#card .nm{border-bottom:.2mm dotted #777;margin:1mm 0 1.2mm;height:3.4mm;font-size:6pt;color:#777}#card ul{margin:0;padding-left:3mm;flex:1;overflow:hidden}#card .r{width:26mm;text-align:center;font-size:5.4pt;display:flex;flex-direction:column;justify-content:center}
+#card .r img{width:26mm;height:26mm;image-rendering:pixelated}#card .dc{font-size:5.3pt;color:#8a3b00;font-weight:600}
+#qr img{width:min(320px,80vw);image-rendering:pixelated;display:block;margin:auto}
+@media print{body *{visibility:hidden}#card,#card *{visibility:visible}#card{position:absolute;left:10mm;top:10mm;margin:0}nav,header{display:none}}</style></head><body>
+<main><div style="background:#fff3cd;border:1px solid #e0c060;border-radius:12px;padding:10px 14px;margin-bottom:12px;color:#6b5000"><b>📝 Bản nháp · chờ duyệt.</b> Trang này đang chờ duyệt lại nội dung.</div>
+<h1>👝 Túi hộ niệm</h1><p class="sub">Lúc còn khỏe, chọn sẵn những lời dặn hộ niệm có trong tờ di chúc mẫu. Trang tạo một mã QR và một tấm thẻ bỏ ví. Khi cần, gia đình quét mã là mở trang <a href="../tro-niem/">🤝 Trợ niệm</a> với đúng những lời dặn này ở trên cùng.</p>
+<div class="card" style="border-color:#e0a060"><b>Đây là lời dặn hộ niệm cho gia đình, không thay cho di chúc pháp lý.</b> <span class="meta">Không có thông tin nào được gửi đi hay lưu trên máy chủ: lựa chọn nằm ngay trong đường link của mã QR. Tên không nằm trong mã, anh chị tự viết tay lên thẻ sau khi in.</span></div>
+<p class="meta">Mỗi lời dặn là nguyên văn trích từ <a target="_blank" href="https://phapthihoi.org/kinh/Ebooks/Thuyet-Phap/Ho-Niem/Di-Chuc.pdf">Tờ di chúc mẫu của Pháp Thí Hội (PDF)</a>. Tiêu đề nhóm do trang đặt để dễ tìm. Các phần về chữa bệnh, ủy quyền quyết định sức khỏe và chữ ký không đưa vào đây.</p>
+<div id="L"></div>
+<h2 style="font-family:Noto Serif,serif;font-size:1.1em">📍 Nơi gia đình có thể liên hệ</h2><div class="card" id="G"></div>
+<button class="btn pri" id="mk" style="font-size:1.15em;padding:14px 22px">🪪 Tạo thẻ</button> <span class="meta" id="msg"></span>
+<div id="out"><h2 style="font-family:Noto Serif,serif;font-size:1.1em;margin-top:20px">Mã QR cho gia đình</h2><div id="qr" class="card"></div>
+<h2 style="font-family:Noto Serif,serif;font-size:1.1em">Thẻ bỏ ví (85,6 × 54 mm)</h2><div id="card"></div>
+<div class="acts" style="justify-content:center"><button class="btn pri" id="pr">🖨️ In thẻ</button><button id="dl">⬇️ Tải ảnh thẻ</button><button id="cp">🔗 Sao chép link</button><a class="btn" id="op" target="_blank">Mở thử link</a></div><p class="meta" id="lk" style="word-break:break-all;text-align:center"></p></div></main>
+<script src="../shared/ui.js"></script><script src="qrcode.js"></script><script>
+const BASE='https://thaivankhuong.github.io/DaiThuaTinhDo-Web/tro-niem/';let I=[],D=[],url='',qimg='';
+const cue=t=>{if(t.length<=60)return t;let k=t.indexOf(',');if(k<15||k>60)k=t.lastIndexOf(' ',55);return t.slice(0,k)+'… (xem đủ khi quét mã)'};
+Promise.all([fetch('items.json').then(r=>r.json()),fetch('../tro-niem/dao-trang.json').then(r=>r.json())]).then(([a,b])=>{I=a;D=b;let g='';
+ $('#L').innerHTML=a.map(x=>(x.group!=g?(g&&'</div>')+'<div class="card"><h3>'+esc(g=x.group)+'</h3>':'')+'<label class="it"><input type="checkbox" value="'+x.id+'"><span><span class="t">'+esc(x.text)+'</span><br><span class="meta">Di chúc mẫu · Pháp Thí Hội · trang '+x.page+'</span></span></label>').join('')+'</div>';
+ $('#G').innerHTML=b.map((x,i)=>'<label class="it"><input type="checkbox" class="gp" value="'+(i+1)+'"><span><b>'+esc(x.name)+'</b><br><span class="meta">'+esc(x.kind)+' · ☎ '+esc(x.phone)+'</span></span></label>').join('')+'<div class="meta">Chỉ gồm các nơi đã duyệt trên trang Trợ niệm. Nên gọi xác nhận trước.</div>'});
+$('#mk').onclick=()=>{const ids=[...document.querySelectorAll('#L input:checked')].map(e=>e.value),gs=[...document.querySelectorAll('.gp:checked')].map(e=>e.value);
+ if(!ids.length){$('#msg').textContent='Xin chọn ít nhất một lời dặn.';return}$('#msg').textContent='';
+ url=BASE+'#tui=1.'+ids.join('')+(gs.length?'.'+gs.join(''):'');const q=qrcode(0,'M');q.addData(url);q.make();qimg=q.createDataURL(8,4);
+ $('#qr').innerHTML='<img alt="QR" src="'+qimg+'">';const sel=I.filter(x=>ids.includes(x.id)),cs=sel.slice(0,4).map(x=>cue(x.text));if(sel.length>4)cs.push('và '+(sel.length-4)+' lời dặn nữa (quét mã)');
+ $('#card').innerHTML='<div class="l"><h4>👝 Túi hộ niệm</h4><div class="nm">Họ tên / pháp danh:</div><ul>'+cs.map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul><div class="dc">Không thay cho di chúc pháp lý</div></div><div class="r"><img src="'+qimg+'"><div>Quét mã để xem lời dặn đầy đủ</div></div>';
+ window._cues=cs;$('#lk').textContent=url;$('#op').href=url;$('#out').classList.add('on');$('#out').scrollIntoView({behavior:'smooth'})};
+$('#pr').onclick=()=>print();$('#cp').onclick=()=>navigator.clipboard.writeText(url).then(()=>$('#cp').textContent='✓ Đã chép');
+$('#dl').onclick=()=>{const W=1012,H=638,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.fillStyle='#fffdf6';x.fillRect(0,0,W,H);x.strokeStyle='#9bb59b';x.lineWidth=4;x.strokeRect(2,2,W-4,H-4);
+ x.fillStyle='#2f4a2f';x.font='bold 46px "Noto Serif",serif';x.fillText('Túi hộ niệm',36,70);x.fillStyle='#777';x.font='26px "Be Vietnam Pro",sans-serif';x.fillText('Họ tên / pháp danh: ________________',36,118);
+ x.fillStyle='#222';x.font='25px "Be Vietnam Pro",sans-serif';let y=165;const wrap=(s)=>{let w=s.split(' '),l='• ';for(const t of w){if(x.measureText(l+t).width>620){x.fillText(l,36,y);y+=32;l='  '}l+=t+' '}x.fillText(l,36,y);y+=38};_cues.forEach(wrap);
+ x.fillStyle='#8a3b00';x.font='bold 24px "Be Vietnam Pro",sans-serif';x.fillText('Không thay cho di chúc pháp lý',36,H-30);
+ const im=new Image();im.onload=()=>{x.imageSmoothingEnabled=false;x.drawImage(im,690,140,290,290);x.fillStyle='#222';x.font='21px "Be Vietnam Pro",sans-serif';x.fillText('Quét mã để xem',760,465);x.fillText('lời dặn đầy đủ',762,492);
+ const a=document.createElement('a');a.download='tui-ho-niem.png';a.href=c.toDataURL();a.click()};im.src=qimg};
+</script></body></html>
