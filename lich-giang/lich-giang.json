@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-06T06:26:55+07:00",
+ "generatedAt": "2026-11-06T18:36:06+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -273,24 +273,6 @@
    "status": "Draft"
   },
   {
-   "id": "5fbed3b7aea0",
-   "teacherSlug": null,
-   "teacherName": null,
-   "title": "Khóa tu Bát quan trai – thuyết giảng Phật pháp Chủ Nhật tại Tịnh xá Trung Tâm",
-   "topic": null,
-   "startTime": "2026-11-15T08:00:00+07:00",
-   "endTime": "2026-11-15T17:00:00+07:00",
-   "format": "InPerson",
-   "venueName": null,
-   "venueAddress": "Giảng đường Tịnh xá Trung Tâm, 21 Nguyễn Trung Trực, phường Bình Lợi Trung, TP.HCM",
-   "provinceName": "TP.HCM",
-   "mapUrl": null,
-   "onlineUrl": null,
-   "sourceUrl": "https://www.facebook.com/trungtamtinhxa/posts/pfbid028sNwrnSmLfyrLgz757yzpKZtrTSHdsQCneuNKSqLVzcmNkByzFM14TxVRFT1AYxgl",
-   "verified": false,
-   "status": "Draft"
-  },
-  {
    "id": "3514406c6ca6",
    "teacherSlug": "thien-thuan",
    "teacherName": "Thượng tọa Thiện Thuận",
@@ -305,6 +287,24 @@
    "mapUrl": null,
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/ThichThienThuanFanPage/posts/pfbid0Y2zYqu8NBTCCa2Mv1Y1m39gJEGx3P7akgQPFttjNmo3rbbyinghT63LW1sWRq7TEl",
+   "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "5fbed3b7aea0",
+   "teacherSlug": null,
+   "teacherName": null,
+   "title": "Khóa tu Bát quan trai – thuyết giảng Phật pháp Chủ Nhật tại Tịnh xá Trung Tâm",
+   "topic": null,
+   "startTime": "2026-11-15T08:00:00+07:00",
+   "endTime": "2026-11-15T17:00:00+07:00",
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Giảng đường Tịnh xá Trung Tâm, 21 Nguyễn Trung Trực, phường Bình Lợi Trung, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/trungtamtinhxa/posts/pfbid028sNwrnSmLfyrLgz757yzpKZtrTSHdsQCneuNKSqLVzcmNkByzFM14TxVRFT1AYxgl",
    "verified": false,
    "status": "Draft"
   },
@@ -324,6 +324,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/photo/?fbid=1128079316263086",
    "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "937d2a158850",
+   "teacherSlug": null,
+   "teacherName": null,
+   "title": "Đại lễ dâng y Kathina",
+   "topic": null,
+   "startTime": "2026-11-20T07:00:00+07:00",
+   "endTime": "2026-11-20T12:00:00+07:00",
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Thiền Viện Phước Sơn, 368 đường Thành Thái, khu phố Tân Cang, phường Phước Tân, Biên Hòa, Đồng Nai",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/thienvienphuocsondoilagiang/posts/pfbid0iisR5UeFT3drFnPDEGviiFQFMK3Uh6hZxo7yDaVREU1MSm9WMgMGELG73sZPBNAXl",
+   "verified": false,
    "status": "Draft"
   },
   {
