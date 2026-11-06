@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-06T18:36:06+07:00",
+ "generatedAt": "2026-11-06T22:49:23+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -183,6 +183,24 @@
    "status": "Draft"
   },
   {
+   "id": "eb7ae971a830",
+   "teacherSlug": "vien-minh",
+   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
+   "title": "Thời khóa sám hối dành cho Phật tử — Bảo Tháp Gotama, Tổ Đình Bửu Long",
+   "topic": null,
+   "startTime": "2026-11-08T18:45:00+07:00",
+   "endTime": "2026-11-08T20:15:00+07:00",
+   "format": "InPerson",
+   "venueName": "Thiền viện Tổ đình Bửu Long",
+   "venueAddress": "Bảo Tháp Gotama, Tổ Đình Bửu Long",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo/?fbid=1607788524722889",
+   "verified": true,
+   "status": "Draft"
+  },
+  {
    "id": "2ce0a68d9f78",
    "teacherSlug": "tam-tam",
    "teacherName": "Sư cô Tâm Tâm",
@@ -273,24 +291,6 @@
    "status": "Draft"
   },
   {
-   "id": "3514406c6ca6",
-   "teacherSlug": "thien-thuan",
-   "teacherName": "Thượng tọa Thiện Thuận",
-   "title": "Khóa tu Bát Quan trai - Huân tu lần 137 tại Chùa Vạn Thiện",
-   "topic": null,
-   "startTime": "2026-11-15T08:00:00+07:00",
-   "endTime": null,
-   "format": "InPerson",
-   "venueName": null,
-   "venueAddress": "Chùa Vạn Thiện, Đường Nguyễn Trọng Quản, khu phố Tân Hạnh, phường Phú Mỹ, thành phố Hồ Chí Minh",
-   "provinceName": "TP.HCM",
-   "mapUrl": null,
-   "onlineUrl": null,
-   "sourceUrl": "https://www.facebook.com/ThichThienThuanFanPage/posts/pfbid0Y2zYqu8NBTCCa2Mv1Y1m39gJEGx3P7akgQPFttjNmo3rbbyinghT63LW1sWRq7TEl",
-   "verified": false,
-   "status": "Draft"
-  },
-  {
    "id": "5fbed3b7aea0",
    "teacherSlug": null,
    "teacherName": null,
@@ -305,6 +305,24 @@
    "mapUrl": null,
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/trungtamtinhxa/posts/pfbid028sNwrnSmLfyrLgz757yzpKZtrTSHdsQCneuNKSqLVzcmNkByzFM14TxVRFT1AYxgl",
+   "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "3514406c6ca6",
+   "teacherSlug": "thien-thuan",
+   "teacherName": "Thượng tọa Thiện Thuận",
+   "title": "Khóa tu Bát Quan trai - Huân tu lần 137 tại Chùa Vạn Thiện",
+   "topic": null,
+   "startTime": "2026-11-15T08:00:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Chùa Vạn Thiện, Đường Nguyễn Trọng Quản, khu phố Tân Hạnh, phường Phú Mỹ, thành phố Hồ Chí Minh",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/ThichThienThuanFanPage/posts/pfbid0Y2zYqu8NBTCCa2Mv1Y1m39gJEGx3P7akgQPFttjNmo3rbbyinghT63LW1sWRq7TEl",
    "verified": false,
    "status": "Draft"
   },
