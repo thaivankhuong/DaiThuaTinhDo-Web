@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-11T09:19:33+07:00",
+ "generatedAt": "2026-11-11T18:19:49+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -75,6 +75,24 @@
    "status": "Draft"
   },
   {
+   "id": "96a8d9e4bb08",
+   "teacherSlug": null,
+   "teacherName": null,
+   "title": "Pháp thoại khóa Kinh Trung Bộ: Tiểu kinh Giáo giới La Hầu La",
+   "topic": null,
+   "startTime": "2026-11-15T09:00:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Thiền đường Thấy Biết, Tu viện Khánh An, 1055/3D Võ Thị Thừa, P. An Phú Đông, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/tuvienkhanhan1055/posts/pfbid06Na85cxn9gGLmVALgkLV9hJu2bPzB9qTUwG5kTu7S5RMP3Vmmjc44qUxTbS5DtRtl",
+   "verified": false,
+   "status": "Draft"
+  },
+  {
    "id": "6983ace6a811",
    "teacherSlug": null,
    "teacherName": null,
@@ -90,6 +108,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/photo/?fbid=1128079316263086",
    "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "7aab20c2065a",
+   "teacherSlug": null,
+   "teacherName": null,
+   "title": "Pháp thoại ÁNH SÁNG TỪ TRÁI TIM (khóa tu kết duyên Phật pháp cho người khiếm thị, khuyết tật)",
+   "topic": null,
+   "startTime": "2026-11-16T10:00:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Chùa Bảo Liên Hoa, ấp Bình Hoà, xã Xuân Phú, Đồng Nai",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/tuvienkhanhan1055/posts/pfbid02W839veXzFDKUVfE9WonDrjeKWiFA3ztnaTVq1ySmpxJb5ukpsJPUeqx6qhbaveRdl",
+   "verified": false,
    "status": "Draft"
   },
   {
