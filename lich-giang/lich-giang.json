@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-11T18:19:49+07:00",
+ "generatedAt": "2026-11-11T21:22:14+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -90,6 +90,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/tuvienkhanhan1055/posts/pfbid06Na85cxn9gGLmVALgkLV9hJu2bPzB9qTUwG5kTu7S5RMP3Vmmjc44qUxTbS5DtRtl",
    "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "3cfdb0a2c365",
+   "teacherSlug": "tam-tam",
+   "teacherName": "Sư cô Tâm Tâm",
+   "title": "Sư cô Tâm Tâm — Thuyết giảng khóa tu Bát Quan Trai (Tịnh xá Trung Tâm, CN 15/11)",
+   "topic": null,
+   "startTime": "2026-11-15T15:00:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": "Tịnh Xá Pháp Huệ",
+   "venueAddress": "Tịnh xá Trung Tâm, 21 Nguyễn Trung Trực, P. Bình Lợi Trung, Q. Bình Thạnh, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tịnh Xá Pháp Huệ, 246/31A Lê Văn Quới, P. Bình Hưng Hòa A, Q. Bình Tân, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo.php?fbid=1110804231952814&set=pb.100090697436845.-2207520000&type=3",
+   "verified": true,
    "status": "Draft"
   },
   {
