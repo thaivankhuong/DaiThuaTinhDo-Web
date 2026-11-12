@@ -1,0 +1,47 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="../shared/ui.css"><title>Giới tà dâm · Lão Pháp Sư Tịnh Không giảng · Đại Thừa Tịnh Độ</title>
+<meta name="description" content="Những đoạn Lão Pháp Sư Tịnh Không giảng về giới tà dâm trong Kinh Vô Lượng Thọ: tác hại, quả báo, cách phòng trừ, đạo vợ chồng. Nguyên văn, kèm nút nghe đoạn giảng gốc.">
+<style>
+.draft{background:#fff3cd;border:1px solid #e0c060;border-radius:12px;padding:10px 14px;margin-bottom:12px;color:#6b5000}
+.dark .draft{background:#3a3010;color:#f0d890;border-color:#6b5a20}
+.hero{background:linear-gradient(135deg,var(--lotus2),var(--card));border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin:6px 0 14px}
+.hero p{margin:6px 0 0;color:var(--mute);font-size:.92em}
+.toc{position:sticky;top:52px;z-index:3;background:var(--bg);padding:6px 0;margin:0}
+.toc .chips{margin:6px 0;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}.toc .chip{white-space:nowrap}
+.sec{margin-top:26px}.sec>h2{font-family:"Noto Serif",serif;font-size:1.2em;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.sec>h2 small{font-family:"Be Vietnam Pro",sans-serif;font-size:.62em;color:var(--mute);font-weight:500}
+.it h3{margin:0 0 4px;font-size:1em;font-weight:600;color:var(--ink)}
+.it h3:before{content:"◆ ";color:var(--gold);font-size:.8em}
+.q{font-family:"Noto Serif",serif;line-height:1.8;border-left:3px solid var(--gold);padding:2px 0 2px 14px;margin:10px 0 4px;white-space:pre-line}
+.q p{margin:0 0 10px}.q p:last-child{margin:0}
+.src{font-size:.78em;color:var(--mute)}
+.note{font-size:.84em;color:var(--mute)}
+#cnt{font-size:.8em;color:var(--mute);margin-left:4px}
+@media(max-width:600px){.toc{top:0;position:relative}.q{padding-left:10px}}
+</style></head><body>
+<main>
+<div class="draft"><b>📝 Bản nháp · chờ duyệt.</b> Trang này đang chờ duyệt lại nội dung.</div>
+<h1>🪷 Giới tà dâm</h1><p class="sub">Những đoạn Lão Pháp Sư Tịnh Không giảng trong Kinh Vô Lượng Thọ (374 tập)</p>
+<div class="hero"><b>Cách đọc trang này</b>
+<p>Phần chữ có gạch vàng bên trái là <b>nguyên văn lời giảng</b>, chép trọn đoạn từ bản Việt dịch, không cắt bớt. Dòng tiêu đề có dấu ◆ là trang đặt để dễ tìm, <b>không phải lời Pháp Sư</b>. Mỗi đoạn có nút nghe đúng phút trong video gốc và đường dẫn đọc cả tập.</p></div>
+<div class="toc"><input type="search" id="q" placeholder="Tìm trong các đoạn giảng, ví dụ: ly hôn, Lăng Nghiêm, sám hối…" aria-label="Tìm"><div class="chips" id="chips"></div></div>
+<div id="list"><div class="empty">Đang tải…</div></div>
+<p class="note" style="margin-top:28px">Nguồn: bản Việt dịch các tập giảng Kinh Vô Lượng Thọ của Lão Pháp Sư Tịnh Không. Nút nghe mở video gốc trên YouTube tại phút được dò tự động theo phụ đề; nếu lệch vài giây, xin kéo lùi một chút.</p>
+</main>
+<script src="../shared/ui.js"></script><script>
+let D=[],cur='all';
+const norm=s=>s.normalize('NFC').toLowerCase();
+const hl=(t,q)=>{const e=esc(t);if(!q)return e;const i=norm(e).indexOf(norm(esc(q)));if(i<0)return e;return e.slice(0,i)+'<mark>'+e.slice(i,i+esc(q).length)+'</mark>'+e.slice(i+esc(q).length)};
+function chips(){const tot=D.reduce((a,s)=>a+s.items.length,0);$('#chips').innerHTML=`<button class="chip ${cur=='all'?'on':''}" data-s="all">Tất cả · ${tot}</button>`+D.map(s=>`<button class="chip ${cur==s.id?'on':''}" data-s="${s.id}">${esc(s.t)} · ${s.items.length}</button>`).join('')}
+function card(it){const id='td:'+it.n+':'+it.para.join('+'),src='Tập '+it.n;
+ return `<div class="card it"><h3>${hl(it.tag,Q())}</h3><div class="src">📚 Lời giảng Lão Pháp Sư Tịnh Không · Tập ${it.n}</div>
+ <div class="q">${it.text.map(p=>'<p>'+hl(p,Q())+'</p>').join('')}</div>
+ <div class="acts">${it.y?`<a class="btn pri" target="_blank" rel="noopener" href="${esc(it.y)}">▶ Nghe đoạn giảng gốc${it.ts?'':' (cả tập)'}</a>`:''}<a class="btn" href="${KV}#/tap/${it.n}/nv">📖 Đọc nguyên văn tập ${it.n}</a>${markBtn(id,{type:'Đoạn giảng',text:it.text.join('\n'),src,link:KV+'#/tap/'+it.n+'/nv',yt:it.y})}</div></div>`}
+const Q=()=>$('#q').value.trim();
+function draw(){const q=norm(Q());let n=0;
+ $('#list').innerHTML=D.filter(s=>cur=='all'||s.id==cur).map(s=>{const its=s.items.filter(it=>!q||norm(it.tag+' '+it.text.join(' ')+' tập '+it.n).includes(q));n+=its.length;if(!its.length)return'';
+  return `<section class="sec" id="s-${s.id}"><h2>${esc(s.t)} <small>${its.length} đoạn</small></h2>${its.map(card).join('')}</section>`}).join('')||'<div class="empty">Không thấy đoạn nào khớp. Thử từ khác, ví dụ “vợ chồng”.</div>'}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(!b)return;cur=b.dataset.s;chips();draw();window.scrollTo({top:$('#list').offsetTop-120,behavior:'smooth'})});
+$('#q').oninput=draw;
+const fit=()=>{if(innerWidth>600)$('.toc').style.top=$('header').offsetHeight+'px'};fit();addEventListener('resize',fit);
+fetch('items.json').then(r=>r.json()).then(x=>{D=x;chips();draw()}).catch(()=>$('#list').innerHTML='<div class="empty">Không tải được dữ liệu.</div>');
+</script></body></html>
