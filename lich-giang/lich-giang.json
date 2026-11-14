@@ -1,25 +1,7 @@
 {
- "generatedAt": "2026-11-13T06:20:28+07:00",
+ "generatedAt": "2026-11-15T06:26:02+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
-  {
-   "id": "f22d13064e10",
-   "teacherSlug": "thien-thuan",
-   "teacherName": "Thượng tọa Thiện Thuận",
-   "title": "Buổi giảng của TT. Thích Thiện Thuận tại Chùa Vĩnh Tràng",
-   "topic": null,
-   "startTime": "2026-11-14T13:30:00+07:00",
-   "endTime": null,
-   "format": "InPerson",
-   "venueName": null,
-   "venueAddress": "Chùa Vĩnh Tràng, Nguyễn Trung Trực, khu phố Mỹ An, phường Mỹ Phong, tỉnh Đồng Tháp (Mỹ Tho, Tiền Giang cũ)",
-   "provinceName": "TP.HCM",
-   "mapUrl": null,
-   "onlineUrl": null,
-   "sourceUrl": "https://www.facebook.com/ThichThienThuanFanPage/posts/pfbid0Y2zYqu8NBTCCa2Mv1Y1m39gJEGx3P7akgQPFttjNmo3rbbyinghT63LW1sWRq7TEl",
-   "verified": false,
-   "status": "Draft"
-  },
   {
    "id": "121b0916f8c5",
    "teacherSlug": "tam-tam",
