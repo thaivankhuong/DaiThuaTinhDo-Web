@@ -1,25 +1,7 @@
 {
- "generatedAt": "2026-11-16T09:23:34+07:00",
+ "generatedAt": "2026-11-17T06:26:06+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
-  {
-   "id": "7aab20c2065a",
-   "teacherSlug": null,
-   "teacherName": null,
-   "title": "Pháp thoại ÁNH SÁNG TỪ TRÁI TIM (khóa tu kết duyên Phật pháp cho người khiếm thị, khuyết tật)",
-   "topic": null,
-   "startTime": "2026-11-16T10:00:00+07:00",
-   "endTime": null,
-   "format": "InPerson",
-   "venueName": null,
-   "venueAddress": "Chùa Bảo Liên Hoa, ấp Bình Hoà, xã Xuân Phú, Đồng Nai",
-   "provinceName": "TP.HCM",
-   "mapUrl": null,
-   "onlineUrl": null,
-   "sourceUrl": "https://www.facebook.com/tuvienkhanhan1055/posts/pfbid02W839veXzFDKUVfE9WonDrjeKWiFA3ztnaTVq1ySmpxJb5ukpsJPUeqx6qhbaveRdl",
-   "verified": false,
-   "status": "Draft"
-  },
   {
    "id": "937d2a158850",
    "teacherSlug": null,
