@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-16T06:22:48+07:00",
+ "generatedAt": "2026-11-16T09:23:34+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -72,6 +72,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/ThichThienThuanFanPage/posts/pfbid0Y2zYqu8NBTCCa2Mv1Y1m39gJEGx3P7akgQPFttjNmo3rbbyinghT63LW1sWRq7TEl",
    "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "669b69b2717d",
+   "teacherSlug": "vien-minh",
+   "teacherName": "Hòa thượng (Sư Ông) Viên Minh",
+   "title": "Buffet chay – hùn phước xây dựng Bảo tháp Bodhi (thư mời của Ni viện Tịnh An Lan Nhã; không nêu tên thầy giảng)",
+   "topic": null,
+   "startTime": "2026-11-22T10:00:00+07:00",
+   "endTime": null,
+   "format": "InPerson",
+   "venueName": "Thiền viện Tổ đình Bửu Long",
+   "venueAddress": "Chùa Bửu Long, 81 Nguyễn Xiển, phường Long Bình, TP. Hồ Chí Minh",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Thiền viện Tổ đình Bửu Long, 81 Nguyễn Xiển, P. Long Bình, TP. Thủ Đức, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/todinhbuulongfanpage/posts/pfbid025GuP3etcWtwqbJN5XFXibYoNKdMNo2TdUBcYHrMieUm6hrV9VajHoRziThunL1BUl",
+   "verified": true,
    "status": "Draft"
   },
   {
