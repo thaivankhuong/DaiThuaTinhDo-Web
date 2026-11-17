@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-17T06:26:06+07:00",
+ "generatedAt": "2026-11-18T06:27:17+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -89,6 +89,24 @@
    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Giác Ngộ, 92 Nguyễn Chí Thanh, P. Vườn Lài, TP.HCM",
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/photo/?fbid=1128079316263086",
+   "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "a8b6f2a112ab",
+   "teacherSlug": "tri-quang",
+   "teacherName": "Đại lão Hòa thượng; Đức Pháp chủ GHPGVN Trí Quảng",
+   "title": "Khóa tu \"Một ngày an lạc\" lần thứ 6 — Chủ giảng: Đại lão Hòa thượng Thích Trí Quảng",
+   "topic": null,
+   "startTime": "2026-11-29T08:00:00+07:00",
+   "endTime": "2026-11-29T16:00:00+07:00",
+   "format": "InPerson",
+   "venueName": "Chùa Huê Nghiêm",
+   "venueAddress": "Học viện Phật giáo Việt Nam tại TP.HCM, Cơ sở 2, 13/14 Mai Bá Hương, xã Bình Lợi, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Huê Nghiêm, P. An Khánh, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://giacngo.vn/ngay-29-11-hoc-vien-phat-giao-vn-tai-tphcm-se-to-chuc-khoa-tu-ngay-an-lac-lan-thu-6-post81651.html",
    "verified": true,
    "status": "Draft"
   },
