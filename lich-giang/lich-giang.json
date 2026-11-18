@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-18T09:24:39+07:00",
+ "generatedAt": "2026-11-18T21:19:14+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -18,6 +18,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/thienvienphuocsondoilagiang/posts/pfbid0iisR5UeFT3drFnPDEGviiFQFMK3Uh6hZxo7yDaVREU1MSm9WMgMGELG73sZPBNAXl",
    "verified": false,
+   "status": "Draft"
+  },
+  {
+   "id": "b79dae5e138d",
+   "teacherSlug": "tam-tam",
+   "teacherName": "Sư cô Tâm Tâm",
+   "title": "Sư cô Tâm Tâm - Vi Diệu Pháp (Nghiệp) - Tịnh xá Pháp Huệ",
+   "topic": null,
+   "startTime": "2026-11-22T07:20:00+07:00",
+   "endTime": "2026-11-22T09:40:00+07:00",
+   "format": "InPerson",
+   "venueName": "Tịnh Xá Pháp Huệ",
+   "venueAddress": "Tịnh xá Pháp Huệ, 246/31A Lê Văn Quới, Bình Trị Đông, Bình Tân, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tịnh Xá Pháp Huệ, 246/31A Lê Văn Quới, P. Bình Hưng Hòa A, Q. Bình Tân, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/photo.php?fbid=1117364044630166&set=pb.100090697436845.-2207520000&type=3",
+   "verified": true,
    "status": "Draft"
   },
   {
