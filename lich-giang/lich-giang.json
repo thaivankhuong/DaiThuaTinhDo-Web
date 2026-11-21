@@ -1,7 +1,25 @@
 {
- "generatedAt": "2026-11-21T09:19:36+07:00",
+ "generatedAt": "2026-11-21T18:23:09+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
+  {
+   "id": "d009611ad84f",
+   "teacherSlug": "hoang-phap",
+   "teacherName": "Chư Tăng chùa Hoằng Pháp",
+   "title": "Khóa tu Sinh viên Hướng về Phật pháp – Tháng 11",
+   "topic": null,
+   "startTime": "2026-11-22T05:00:00+07:00",
+   "endTime": "2026-11-22T16:00:00+07:00",
+   "format": "InPerson",
+   "venueName": "Chùa Hoằng Pháp",
+   "venueAddress": "Chùa Hoằng Pháp, 188/8 ấp 23, xã Hóc Môn, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": "https://www.google.com/maps/search/?api=1&query=Chùa Hoằng Pháp, xã Tân Hiệp, TP.HCM",
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/vietnamchuahoangphap/posts/pfbid02o5vAGs7g3LoLMca3Y1aGKAF8kh6py1wPpwxcjHHXbiHxjDzk6T7Ffs7UbypUGWBGl",
+   "verified": false,
+   "status": "Draft"
+  },
   {
    "id": "b79dae5e138d",
    "teacherSlug": "tam-tam",
