@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-11-21T18:23:09+07:00",
+ "generatedAt": "2026-11-22T12:26:17+07:00",
  "generator": "n8n phatphap (export_lich_giang.py)",
  "events": [
   {
@@ -126,6 +126,24 @@
    "onlineUrl": null,
    "sourceUrl": "https://www.facebook.com/photo.php?fbid=1624265266408548",
    "verified": true,
+   "status": "Draft"
+  },
+  {
+   "id": "40a4de1c13a3",
+   "teacherSlug": "nhat-tu",
+   "teacherName": "Thượng tọa Nhật Từ",
+   "title": "Hội thảo “Trưởng lão Tịnh Sự và tầm ảnh hưởng trong Phật giáo Nam tông Kinh Việt Nam” (hội thảo, không phải pháp thoại)",
+   "topic": null,
+   "startTime": "2026-11-29T07:30:00+07:00",
+   "endTime": "2026-11-29T17:00:00+07:00",
+   "format": "InPerson",
+   "venueName": null,
+   "venueAddress": "Viện Nghiên cứu Phật học Việt Nam, 750 Nguyễn Kiệm, P. Đức Nhuận, TP.HCM",
+   "provinceName": "TP.HCM",
+   "mapUrl": null,
+   "onlineUrl": null,
+   "sourceUrl": "https://www.facebook.com/ThichNhatTu/posts/pfbid0RchssjojtGMBPat6YCSBhFwvce99Q738t3bFYoBe4N4uxEWR5ckoBXwdtXcNXwWAl",
+   "verified": false,
    "status": "Draft"
   },
   {
